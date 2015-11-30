@@ -2,6 +2,9 @@
  * Module dependencies.
  */
 var express = require('express');
+var server = require('http').Server(express);
+var io = require('socket.io')(server);
+
 var cookieParser = require('cookie-parser');
 var compress = require('compression');
 var favicon = require('serve-favicon');
@@ -210,3 +213,20 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+
+/**
+ * Start Sockets
+ */
+// server.listen(app.get('port'), function() {
+//   console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
+// });
+
+// io.on('connection', function(socket) {
+//   socket.emit('greet', { hello: 'Hey there browser!' });
+//   socket.on('respond', function(data) {
+//     console.log(data);
+//   });
+//   socket.on('disconnect', function() {
+//     console.log('Socket disconnected');
+//   });
+// });
