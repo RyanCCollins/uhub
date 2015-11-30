@@ -13,3 +13,9 @@ exports.landingPage = function(req, res) {
 		title: 'Welcome to uHub'
 	});
 };
+
+exports.admin = function(req, res) {
+	res.render('admin', {
+		title: 'Welcome'
+	});
+};

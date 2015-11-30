@@ -1,0 +1,25 @@
+{
+  "name": "uHub",
+  "description": "uHub",
+  "main": "app.js",
+  "authors": [
+    "Ryan <techrapportrc@gmail.com>"
+  ],
+  "license": "proprietary",
+  "homepage": "https://github.com/TechRapport/uHub",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "admin-lte#~2.3.2"
+  },
+  "install" : {
+    "path": "/public/lib"
+  }
+}
