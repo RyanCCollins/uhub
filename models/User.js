@@ -40,7 +40,8 @@ User.add({
 }, 'Notifications', {
 	notifications: {
 		posts: { type: Boolean },
-		meetups: { type: Boolean, default: true }
+		meetups: { type: Boolean, default: true },
+		projects: { type: Boolean, default: true }
 	}
 }, 'Mentoring', {
 	mentoring: {
@@ -52,7 +53,8 @@ User.add({
 		want: { type: String, label: 'Wants...', dependsOn: deps.mentoring }
 	}
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Can Admin SydJS' },
+	isAdmin: { type: Boolean, label: 'Can Admin uHub' },
+	canPostProjects: { type: Boolean, label: 'Can post projects', default: true },
 	isVerified: { type: Boolean, label: 'Has a verified email address' }
 }, 'Services', {
 	services: {
@@ -155,6 +157,7 @@ User.schema.pre('save', function(next) {
 User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
 User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
 User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
+User.relationship({ ref: 'Project', refPath: ''})
 
 
 /**
@@ -204,11 +207,11 @@ User.schema.methods.resetPassword = function(callback) {
 		new keystone.Email('forgotten-password').send({
 			user: user,
 			link: '/reset-password/' + user.resetPasswordKey,
-			subject: 'Reset your SydJS Password',
+			subject: 'Reset your uHub Password',
 			to: user.email,
 			from: {
-				name: 'SydJS',
-				email: 'contact@sydjs.com'
+				name: 'uHub',
+				email: 'contact@uHub.io'
 			}
 		}, callback);
 	});

@@ -1,0 +1,46 @@
+extends ../../layouts/default
+
+block content
+	.container-sm
+		a(href='/projects').text-muted &larr; Back to the project gallery
+		article.full-post
+			if !project
+				h2 Invalid Project.
+			else
+				header
+					if project.state != 'published' && user.isAdmin
+						.mt-1: .alert.alert-danger This Project has not been published yet. 
+							a(href='/keystone/projects/' + project.id).alert-link Open Keystone
+							|  to publish it.
+					
+					h1.blog-post__title= project.title
+					p.blog-post__byline Project
+						if project.author
+							|  created by&nbsp;
+							a(href='/members', rel='author')=project.author.name.full
+						if project.publishedDate
+							|  on #{project._.publishedDate.format('MMMM D, YYYY')}
+						if project.categories && project.categories.length
+							|  in&nbsp;
+							each cat, cat_i in project.categories
+								a(href='/projects/' + cat.key)= cat.name
+								if cat_i < project.categories.length - 1
+									| ,&nbsp;
+								else
+									|&nbsp;
+					
+					//- sharing buttons
+					.share-buttons
+						span.share-button
+							.fb-like(data-href="http://www.uHub.io/projects/browse/" + project.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
+						span.share-button
+							a(href="https://twitter.com/share", data-via="uHub", data-hashtags="uHub", data-count="button", data-dnt="true").twitter-share-button Tweet
+						span.share-button
+							.g-plusone(data-size="medium")
+				if project.image.exists
+					.post-image.mv-3: img(src=project._.image.fit(720,420)).img-responsive.img-thumbnail
+				!= project.content.full
+
+block js
+	script(src='/js/common/share.js')
+	script(src="https://apis.google.com/js/plusone.js")

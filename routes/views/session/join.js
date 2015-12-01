@@ -33,7 +33,7 @@ exports = module.exports = function(req, res) {
 				keystone.list('User').model.findOne({ email: req.body.email }, function(err, user) {
 					
 					if (err || user) {
-						req.flash('error', 'User already exists with that email address.');
+						req.flash('error', 'Seems like you already have an account.');
 						return cb(true);
 					}
 					
