@@ -75,10 +75,11 @@ exports = module.exports = function (app) {
 	app.all('/links/link/:link', routes.views.link);
 	app.get('/blog/:category?', routes.views.blog);
 	app.all('/blog/post/:post', routes.views.post);
+	app.all('/projects/browse/:project', routes.views.project);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 
-	app.get('/showbag', routes.views.showbag);
+	app.get('/projects', routes.views.projects);
 
 	// Session
 	app.all('/join', routes.views.session.join);
@@ -97,6 +98,7 @@ exports = module.exports = function (app) {
 	app.all('/me', routes.views.me);
 	app.all('/me/create/post', routes.views.createPost);
 	app.all('/me/create/link', routes.views.createLink);
+	app.all('/me/create/project', routes.views.createProject);
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);

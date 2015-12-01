@@ -3,27 +3,29 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
- * Posts Model
+ * Project Model
  * ===========
  */
 
-var Post = new keystone.List('Post', {
+var Project = new keystone.List('Project', {
 	map: { name: 'title' },
 	track: true,
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 
-Post.add({
+Project.add({
 	title: { type: String, required: true },
-	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
+	githubURL: { type: String, required: false },
+	appetizeURL: { type: String, required: false },
 	publishedDate: { type: Types.Date, index: true },
 	image: { type: Types.CloudinaryImage },
 	content: {
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	categories: { type: Types.Relationship, ref: 'PostCategory', many: true }
+	githubURL: { type: String, required: false },
+	categories: { type: Types.Relationship, ref: 'ProjectCategory', many: true }
 });
 
 /**
@@ -31,36 +33,27 @@ Post.add({
  * ========
  */
 
-Post.schema.virtual('content.full').get(function() {
+Project.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
-
-
-/**
- * Relationships
- * =============
- */
-
-Post.relationship({ ref: 'PostComment', refPath: 'post', path: 'comments' });
-
 
 /**
  * Notifications
  * =============
  */
 
-Post.schema.methods.notifyAdmins = function(callback) {
-	var post = this;
+Project.schema.methods.notifyAdmins = function(callback) {
+	var project = this;
 	// Method to send the notification email after data has been loaded
 	var sendEmail = function(err, results) {
 		if (err) return callback(err);
 		async.each(results.admins, function(admin, done) {
-			new keystone.Email('admin-notification-new-post').send({
+			new keystone.Email('admin-notification-new-project').send({
 				admin: admin.name.first || admin.name.full,
 				author: results.author ? results.author.name.full : 'Somebody',
-				title: post.title,
-				keystoneURL: 'http://www.uhub.io/keystone/post/' + post.id,
-				subject: 'New Post to uHub'
+				title: project.title,
+				keystoneURL: 'http://www.uhub.io/keystone/project/' + project.id,
+				subject: 'New project posted to uHub'
 			}, {
 				to: admin,
 				from: {
@@ -73,8 +66,8 @@ Post.schema.methods.notifyAdmins = function(callback) {
 	// Query data in parallel
 	async.parallel({
 		author: function(next) {
-			if (!post.author) return next();
-			keystone.list('User').model.findById(post.author).exec(next);
+			if (!project.author) return next();
+			keystone.list('User').model.findById(project.author).exec(next);
 		},
 		admins: function(next) {
 			keystone.list('User').model.find().where('isAdmin', true).exec(next)
@@ -88,6 +81,6 @@ Post.schema.methods.notifyAdmins = function(callback) {
  * ============
  */
 
-Post.defaultSort = '-publishedDate';
-Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
-Post.register();
+Project.defaultSort = '-publishedDate';
+Project.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
+Project.register();
