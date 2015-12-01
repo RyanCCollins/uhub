@@ -17,7 +17,7 @@ exports.initLocals = function(req, res, next) {
 		{ label: 'Meetups',		key: 'meetups',		href: '/meetups' },
 		{ label: 'Members',		key: 'members',		href: '/members' },
 		{ label: 'Blog',		key: 'blog',		href: '/blog' },
-		{ label: 'Projects',		key: 'projects',		href: '/projects' }
+		{ label: 'Browse Projects',		key: 'projects',		href: '/projects' }
 	];
 
 	locals.user = req.user;
@@ -46,20 +46,6 @@ exports.initLocals = function(req, res, next) {
 	next();
 
 };
-
-
-/**
-	Make sponsors universally available
-*/
-
-exports.loadSponsors = function(req, res, next) {
-	keystone.list('Organisation').model.find().sort('name').exec(function(err, sponsors) {
-		if (err) return next(err);
-		req.sponsors = sponsors;
-		res.locals.sponsors = sponsors;
-		next();
-	});
-}
 
 
 /**

@@ -14,6 +14,7 @@ var keystone = require('keystone');
 var pkg = require('./package.json');
 var port = process.env.PORT || 8080;
 var IP = process.env.IP;
+var secrets = require('./lib/auth/secrets');
 
 keystone.init({
 
@@ -41,7 +42,8 @@ keystone.init({
 	'cookie secret': process.env.COOKIE_SECRET || 'uHub',
 
 	'mandrill api key': process.env.MANDRILL_KEY,
-
+	'cloudinary config': process.env.CLOUDINARY_URI || secrets.cloudinary.uri,
+	
 	'google api key': process.env.GOOGLE_BROWSER_KEY,
 	'google server api key': process.env.GOOGLE_SERVER_KEY,
 
@@ -88,6 +90,13 @@ keystone.set('nav', {
 	'members': ['users', 'organisations'],
 	'posts': ['posts', 'post-categories', 'post-comments'],
 	'links': ['links', 'link-tags', 'link-comments']
+});
+
+keystone.set('cloudinary config', {
+	'cloudinary config': process.env.CLOUDINARY_URI || secrets.cloudinary.uri,
+		'cloudinary prefix': 'uhub',
+		'cloudinary secure': true
+
 });
 
 keystone.start();

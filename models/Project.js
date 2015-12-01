@@ -16,7 +16,8 @@ var Project = new keystone.List('Project', {
 Project.add({
 	title: { type: String, required: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
-	githubURL: { type: String, required: false },
+	description: { type: String },
+	githubURL: { type: String, required: true },
 	appetizeURL: { type: String, required: false },
 	publishedDate: { type: Types.Date, index: true },
 	image: { type: Types.CloudinaryImage },
