@@ -3,7 +3,7 @@ extends ../../layouts/default
 block content
 	.container-sm
 		a(href='/projects').text-muted &larr; Back to the project gallery
-		article.full-post
+		article.full-project
 			if !project
 				h2 Invalid Project.
 			else
@@ -13,8 +13,8 @@ block content
 							a(href='/keystone/projects/' + project.id).alert-link Open Keystone
 							|  to publish it.
 					
-					h1.blog-post__title= project.title
-					p.blog-post__byline Project
+					h1.project-post__title= project.title
+					p.project-post__byline Project
 						if project.author
 							|  created by&nbsp;
 							a(href='/members', rel='author')=project.author.name.full

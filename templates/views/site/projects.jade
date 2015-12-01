@@ -1,6 +1,6 @@
 extends ../../layouts/default
 
-include ../../mixins/project
+include ../../mixins/projects
 
 block intro
 	.page-intro: .container
@@ -18,14 +18,14 @@ block content
 					h3 Invalid Category.
 				else
 					if data.projects.length
-						.post-cards.row(itemscope itemtype="http://schema.org/Blog")
+						.project-cards.row(itemscope itemtype="http://schema.org/Blog")
 							each project in data.projects
 								+project(project)
 					else
 						if data.category
-							h3.text-muted No posts in the category #{data.category.name}.
+							h3.text-muted No projects in the category #{data.category.name}.
 						else
-							h3.text-muted There are no posts yet.
+							h3.text-muted There are no projects yet.
 			
 			if data.categories.length
 				.col-md-2
