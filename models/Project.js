@@ -17,6 +17,7 @@ Project.add({
 	title: { type: String, required: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	description: { type: String },
+	download: { type: Types.uri, required: false },
 	githubURL: { type: String, required: true },
 	appetizeURL: { type: String, required: false },
 	publishedDate: { type: Types.Date, index: true },
@@ -59,7 +60,7 @@ Project.schema.methods.notifyAdmins = function(callback) {
 				to: admin,
 				from: {
 					name: 'uhub',
-					email: 'contact@uhub.com'
+					email: 'contact@uhub.io'
 				}
 			}, done);
 		}, callback);

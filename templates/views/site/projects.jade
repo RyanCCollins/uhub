@@ -1,6 +1,6 @@
 extends ../../layouts/default
 
-include ../../mixins/projects
+include ../../mixins/project
 
 block intro
 	.page-intro: .container
@@ -13,10 +13,10 @@ block intro
 block content
 	.page-content: .container
 		.row
-			div(class= data.categories.length || !data.projects.length ? 'col-md-10' : 'col-md-10 col-md-offset-1')
-				if filters.category && !data.category
-					h3 Invalid Category.
-				else
+			// div('col-md-10 col-md-offset-1')
+			// 	if filters.category && !data.category
+			// 		h3 Invalid Category.
+			// 	else
 					if data.projects.length
 						.project-cards.row(itemscope itemtype="http://schema.org/Blog")
 							each project in data.projects
@@ -30,7 +30,7 @@ block content
 			if data.categories.length
 				.col-md-2
 					if data.categories.length
-						h5.text-muted Filter by categore
+						h5.text-muted Filter by categorey
 						ul.list-unstyled.tags-list
 							li: a(href='/projects', class=!data.categories ? 'active' : false) All
 							each tag in data.categories

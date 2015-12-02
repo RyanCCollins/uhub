@@ -32,7 +32,7 @@ exports = module.exports = function(req, res) {
 			async.each(locals.data.categories, function(category, next) {
 				
 				keystone.list('Project').model.count().where('category').in([category.id]).exec(function(err, count) {
-					category.postCount = count;
+					category.projectCount = count;
 					next(err);
 				});
 				
@@ -61,14 +61,14 @@ exports = module.exports = function(req, res) {
 	// Load the posts
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('author categories');
+		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('project categories');
 		
 		if (locals.data.category) {
 			q.where('categories').in([locals.data.category]);
 		}
 		
 		q.exec(function(err, results) {
-			locals.data.posts = results;
+			locals.data.projects = results;
 			next(err);
 		});
 		

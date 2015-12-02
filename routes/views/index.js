@@ -3,6 +3,7 @@ var keystone = require('keystone'),
 
 var Meetup = keystone.list('Meetup'),
 	Post = keystone.list('Post'),
+	Project = keystone.list('Project'),
 	RSVP = keystone.list('RSVP');
 
 exports = module.exports = function(req, res) {
