@@ -87,9 +87,16 @@ keystone.set('email locals', {
 
 keystone.set('nav', {
 	'meetups': ['meetups', 'talks', 'rsvps'],
+	'projects': ['projects', 'project-categories'],
 	'members': ['users', 'organisations'],
 	'posts': ['posts', 'post-categories', 'post-comments'],
 	'links': ['links', 'link-tags', 'link-comments']
+});
+
+keystone.set('nav-profile-dropdown', {
+	'My Profile': '/me',
+	'My Projects': '/me/projects',
+	'Sign Out' : '/signout'
 });
 
 keystone.set('cloudinary config', {

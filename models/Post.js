@@ -64,7 +64,7 @@ Post.schema.methods.notifyAdmins = function(callback) {
 			}, {
 				to: admin,
 				from: {
-					name: 'SydJS',
+					name: 'uHub',
 					email: 'contact@uhub.io'
 				}
 			}, done);

@@ -26,8 +26,14 @@ $(function() {
 		};
 	});
 	
-	
-	
+	//Hover dropdown menu:
+	$(document).ready(function() {
+    $('.nav .dropdown').hover(function() {
+        $(this).addClass('open');
+    }, function() {
+        $(this).removeClass('open');
+    });
+	});
 	
 	
 	// Generic confirms
