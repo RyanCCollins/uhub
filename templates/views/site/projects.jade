@@ -13,20 +13,9 @@ block intro
 block content
 	.page-content: .container
 		.row
-			// div('col-md-10 col-md-offset-1')
-			// 	if filters.category && !data.category
-			// 		h3 Invalid Category.
-			// 	else
-					if data.projects.length
-						.project-cards.row(itemscope itemtype="http://schema.org/Blog")
-							each project in data.projects
-								+project(project)
-					else
-						if data.category
-							h3.text-muted No projects in the category #{data.category.name}.
-						else
-							h3.text-muted There are no projects yet.
-			
+			.project-cards.row(itemscope itemtype="http://schema.org/Blog")
+				each project in data.projects
+					+project(project)
 			if data.categories.length
 				.col-md-2
 					if data.categories.length

@@ -13,20 +13,13 @@ var UdacityEnrollment = new keystone.List('UdacityEnrollment', {
 
 UdacityEnrollment.add({
 	key: { type: String, index: true },
-	title: String ,
+	user: { type: Types.Relationship, ref: 'User', index: true },
+	title: String,
 	quiz_count: Number,
 	completed: Boolean,
 	description: { type: Types.Markdown },
 	location: Types.Location
 });
-
-
-/**
- * Relationships
- * =============
- */
-
-UdacityEnrollment.relationship({ ref: 'User', refPath: 'organisation', path: 'members' });
 
 
 /**

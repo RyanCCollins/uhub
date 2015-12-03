@@ -17,8 +17,8 @@ Project.add({
 	title: { type: String, required: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	description: { type: String },
-	download: { type: Types.uri, required: false },
-	githubURL: { type: String, required: true },
+	download: { type: Types.Url, required: false },
+	githubURL: { type: Types.Url, required: false },
 	appetizeURL: { type: String, required: false },
 	publishedDate: { type: Types.Date, index: true },
 	image: { type: Types.CloudinaryImage },
@@ -26,7 +26,6 @@ Project.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	githubURL: { type: String, required: false },
 	categories: { type: Types.Relationship, ref: 'ProjectCategory', many: true }
 });
 

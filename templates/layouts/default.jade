@@ -11,8 +11,10 @@ html
 				var _sf_startpt=(new Date()).getTime()
 		
 		meta(charset="utf-8")
-		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
 
+		meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+		// Slidebars CSS
+		link(rel='stylesheet', href='/styles/slidebars.min.css')
 		//- Appstore smart banner
 		meta(name="apple-itunes-app", content="app-id=897396382")
 		
@@ -28,8 +30,8 @@ html
 
 	//- HTML BODY
 	body(class=section ? 'sitesection-' + section : null)
+		#sb-site
 		.site-wrapper.has-sticky-footer
-			
 			//- APP ALERT
 			if section == 'home'
 				include ../includes/layout/app-alert
@@ -71,12 +73,20 @@ html
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
 	script(src='/js/lib/bootstrap/modal.js')
-
+	script(src='/js/lib/slidebars.min.js')
+      
 	//- Headroom
 	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")
 	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js")
 	//-script(src='/js/common/header.js')
-
+	
+	script.
+		(function($) {
+		$(document).ready(function() {
+		$.slidebars();
+	});
+	}) (jQuery);
+	
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')
 	

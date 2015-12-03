@@ -10,7 +10,6 @@ var importRoutes = keystone.importer(__dirname);
 // Common Middleware
 keystone.pre('routes', middleware.initErrorHandlers);
 keystone.pre('routes', middleware.initLocals);
-keystone.pre('routes', middleware.loadSponsors);
 keystone.pre('render', middleware.flashMessages);
 
 // Handle 404 errors
@@ -69,6 +68,7 @@ exports = module.exports = function (app) {
 	app.get('/members', routes.views.members);
 	app.get('/members/mentors', routes.views.mentors);
 	app.get('/member/:member', routes.views.member);
+	app.get('/member/:member/projects', routes.views.project);
 	app.get('/organisations', routes.views.organisations);
 	app.get('/links', routes.views.links);
 	app.get('/links/:tag?', routes.views.links);
@@ -124,5 +124,5 @@ exports = module.exports = function (app) {
 	app.all('/api/app/signin-recover', routes.api.app['signin-recover']);
 	
 	// API - Projects
-	app.all('/api/app/projects', routes.api.app.projects);
+	//app.all('/api/app/projects', routes.api.app.projects);
 }

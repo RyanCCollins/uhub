@@ -9,7 +9,7 @@ exports = module.exports = function(req, res) {
 	locals.page.title = 'About uHub';
 	
 	locals.organisers = [
-		{ name: 'Ryan Collins', image: '/images/ryan.jpg', twitter: 'twalve',       title: 'Udacity student extraordinaire.  Creator of uhub.' }
+		{ name: 'Ryan Collins', image: '/images/ryan.jpg', twitter: 'tech_rapport',       title: 'Udacity student extraordinaire.  Creator of uhub.' }
 	]
 	
 	view.render('site/about');

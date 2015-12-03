@@ -19,7 +19,8 @@ var deps = {
 	github: { 'services.github.isConfigured': true },
 	facebook: { 'services.facebook.isConfigured': true },
 	google: { 'services.google.isConfigured': true },
-	twitter: { 'services.twitter.isConfigured': true }
+	twitter: { 'services.twitter.isConfigured': true },
+	udacity: { 'services.udacity.isConfigured': true }
 }
 
 User.add({
@@ -34,6 +35,7 @@ User.add({
 	photo: { type: Types.CloudinaryImage },
 	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
+	udacity: { type: String, width: 'short' },
 	website: { type: Types.Url },
 	bio: { type: Types.Markdown },
 	gravatar: { type: String, noedit: true }
@@ -101,11 +103,25 @@ User.add({
 
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.twitter },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.twitter }
+		},
+		udacity: {
+			isConfigured: { type: Boolean, label: 'Udacity account has been authenticated' },
+			
+			profileId: { type: String, label: 'Profile ID', dependsOn: deps.udacity },
+
+			username: { type: String, label: 'Username', dependsOn: deps.udacity },
+			avatar: { type: String, label: 'Image', dependsOn: deps.udacity },
+
+			accessToken: { type: String, label: 'Access Token', dependsOn: deps.udacity },
+			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.udacity }
 		}
 	}
-}, 'Meta', {
+}, 'Enrollments', {
+	enrollment : { type: Types.Relationship, ref: 'UdacityEnrollment', dependsOn: deps.udacity }
+	
+},  'Meta', {
 	talkCount: { type: Number, default: 0, noedit: true },
-	lastRSVP: { type: Date, noedit: true }
+	lastRSVP: { type: Date, noedit: true },
 });
 
 
@@ -157,7 +173,7 @@ User.schema.pre('save', function(next) {
 User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
 User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
 User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
-User.relationship({ ref: 'Project', refPath: ''})
+User.relationship({ ref: 'Project', refPath: 'author', path: 'projects' })
 
 
 /**
