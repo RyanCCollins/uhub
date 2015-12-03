@@ -16,11 +16,10 @@ var lusca = require('lusca');
 var methodOverride = require('method-override');
 
 var _ = require('lodash');
-var MongoStore = require('connect-mongo')(session);
+
 var flash = require('express-flash');
 var path = require('path');
-var mongoose = require('mongoose');
-var passport = require('passport');
+
 var expressValidator = require('express-validator');
 var sass = require('node-sass-middleware');
 
@@ -29,9 +28,7 @@ var sass = require('node-sass-middleware');
  * Controllers (route handlers).
  */
 var homeController = require('./controllers/home');
-var userController = require('./controllers/user');
-var apiController = require('./controllers/api');
-var contactController = require('./controllers/contact');
+
 
 /**
  * API keys and Passport configuration.
