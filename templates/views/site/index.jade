@@ -11,14 +11,14 @@ block intro
 
 	//- HERO
 	if !meetup
-		h2.text-center This is a new site.
+		h2.text-center No meetups yet!  Sign in to create one.
 	else
 		article#hero.hero-meetup.hero-meetup--next
 			
 			//- Intro
 			section.hero-intro.hero-intro--hasmask
 				.hero-background
-					//-img(src='/images/placeholders/sydney-1.jpg')
+					//-img(src='/images/code.jpg')
 				.hero-intro-content
 					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} Meetup
 					h1.title= meetup.name

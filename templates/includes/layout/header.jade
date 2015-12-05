@@ -3,8 +3,8 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 	nav.navbar(role='navigation'): .container
 		//- Site logo + site nav trigger button (on mobile)
 		.navbar-header
-			a(href='/', title='Back to Home').site-branding uHub
-				
+			a(href='/', title='Back to Home').site-branding
+				include /public/images/logo.svg
 			//- User avatar
 			if user
 				a(href='/me').user.visible-xs

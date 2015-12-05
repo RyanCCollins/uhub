@@ -13,15 +13,14 @@ html
 		meta(charset="utf-8")
 
 		meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-		// Slidebars CSS
-		link(rel='stylesheet', href='/styles/slidebars.min.css')
 		//- Appstore smart banner
-		meta(name="apple-itunes-app", content="app-id=897396382")
+		//meta(name="apple-itunes-app", content="app-id=XXXXXXXXXX")
 		
 		title= page.title
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
-		
+		link(href='https://fonts.googleapis.com/css?family=Dancing+Script', rel='stylesheet', type='text/css')
+
 		if user && user.canAccessKeystone
 			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
 
@@ -65,8 +64,8 @@ html
 
 	//- JAVASCRIPT
 	script.
-		var SydJS = {};
-		SydJS.meetup = !{JSON.stringify(meetup)};
+		var uHub = {};
+		uHub.meetup = !{JSON.stringify(meetup)};
 
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
@@ -80,18 +79,10 @@ html
 	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js")
 	//-script(src='/js/common/header.js')
 	
-	script.
-		(function($) {
-		$(document).ready(function() {
-		$.slidebars();
-	});
-	}) (jQuery);
-	
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')
 	
 	script(src='/js/ui.js')
-
 	
 	//- ANALYTICS
 	include ../includes/layout/analytics

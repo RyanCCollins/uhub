@@ -9,11 +9,11 @@ exports = module.exports = function(req, res) {
 	// Init locals
 	locals.section = 'projects';
 	locals.page.title = 'Browse Projects - uHub';
-	locals.filters = {
-		category: req.params.category
-	};
+	// locals.filters = {
+	// 	category: req.params.category
+	// };
 	locals.data = {
-		posts: [],
+		projects: [],
 		categories: []
 	};
 	
@@ -63,9 +63,9 @@ exports = module.exports = function(req, res) {
 		
 		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('project categories');
 		
-		if (locals.data.category) {
-			q.where('categories').in([locals.data.category]);
-		}
+		// if (locals.data.category) {
+		// 	q.where('categories').in([locals.data.category]);
+		// }
 		
 		q.exec(function(err, results) {
 			locals.data.projects = results;

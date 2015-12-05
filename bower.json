@@ -1,0 +1,27 @@
+{
+  "name": "UHub",
+  "description": "",
+  "main": "keystone.js",
+  "authors": [
+    "Tech Rapport <info@techrapport.com>"
+  ],
+  "license": "proprietary",
+  "keywords": [
+    "node",
+    "express",
+    "keystone"
+  ],
+  "homepage": "https://github.com/TechRapport/uhub",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Slidebars": "~0.10.3"
+  }
+}

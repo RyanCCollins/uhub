@@ -1,32 +1,12 @@
 mixin project(project)
-	.col-sm-4
-		article(role="article", itemscope itemtype="http://schema.org/BlogPosting").project-card
-			if project.image.exists
-				a(href='/projects/browse/' + project.slug).post-image: img(src=project._.image.thumbnail(600,320), alt=project.title).img-responsive
-			.project-summary
-				.project-byline
-					.project-author: a(href='/projects/browse/' + project.slug)=project.author.name.full
-					//- .date-stamp: em=moment(project.publishedDate).fromNow()
-
-				h4(itemprop='name').project-title.mv-1
-					a(href='/projects/browse/' + projects.slug, itemprop='url')=projects.title
-				.project-content-brief(itemprop='description')!= projects.content.brief
-	//-article(role="article", itemscope itemtype="http://schema.org/BlogPosting").project-post
-		.blog-project__date.illustrative-heading
-			span.illustrative-heading__line
-			span.illustrative-heading__text
-				time(datetime=project._.publishedDate.format('YYYY-MM-DD'), itemprop='datePublished')=project._.publishedDate.format('MMMM D, YYYY')
-		.project-post__image
-			a(href='/projects/browse/' + project.slug)
-				if project.image.exists
-					img(src=project._.image.fit(770,510), alt=project.title).img-responsive
-		.project-post__content(data-ks-editable=editable(user, { list: 'Project', id: project.id }))
-			h3(itemprop='name').project-post__heading: a(href='/projects/browse' + project.slug, itemprop='url')= project.title
-			if project.author
-				h5.project-post__author by #{project.author.name.full}
-			if project.categories && project.categories.length
-				ul.list-unstyled.tags-list
-					each tag, i in project.categories
-						li: a(href='/project/' + tag.key)= tag.name
-			.description(itemprop='description')!= post.content.brief
-			p: a(href='/projects/browse/' + project.slug, itemprop='url') Read more &rarr;
+		.col-md-7
+		a(href='/projects/' + project.slug).post-image: img(src=project._.image.thumbnail(700,300), alt=project.title).img-responsive
+		.col-md-4
+		h3 project.title
+		h4 by #{project.author.name.full}
+		p
+			| project.description
+		a(href='/projects/' + projects.slug, itemprop='url')
+			| projects.title 
+			span.glyphicon.glyphicon-chevron-right
+		//To do - allow user to edit their projects.

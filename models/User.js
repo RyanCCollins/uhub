@@ -116,8 +116,8 @@ User.add({
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.udacity }
 		}
 	}
-}, 'Enrollments', {
-	enrollment : { type: Types.Relationship, ref: 'UdacityEnrollment', dependsOn: deps.udacity }
+}, 'Nanodegree Enrollments', {
+	enrollment : { type: Types.Relationship, ref: 'Nanodegree', many: true, dependsOn: deps.udacity }
 	
 },  'Meta', {
 	talkCount: { type: Number, default: 0, noedit: true },

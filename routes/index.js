@@ -78,6 +78,7 @@ exports = module.exports = function (app) {
 	app.all('/projects/browse/:project', routes.views.project);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
+	app.get('/privacy', routes.views.privacy);
 
 	app.get('/projects', routes.views.projects);
 
@@ -99,12 +100,14 @@ exports = module.exports = function (app) {
 	app.all('/me/create/post', routes.views.createPost);
 	app.all('/me/create/link', routes.views.createLink);
 	app.all('/me/create/project', routes.views.createProject);
+	// To do, setup a view to edit projects
+	app.all('/me/projects/', routes.views.projects);
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
 
 	// GraphQL API
-	app.post('/api/graphql', bodyParser.text({ type: 'application/graphql' }), routes.api.graphql);
+	//app.post('/api/graphql', bodyParser.text({ type: 'application/graphql' }), routes.api.graphql);
 
 	// API
 	app.all('/api*', keystone.middleware.api);

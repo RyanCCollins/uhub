@@ -38,7 +38,9 @@ block content
 							|  When there is a new post
 				hr.mv-2
 				h3 Your Services
-				p.help-block.mb-2 You can authenticate yourself on the uHub website with any of the services you connect. When connected, links to your Twitter and Github will be displayed on your profile.
+				p.help-block.mb-2 You can authenticate yourself on the uHub website with any of the services you connect. When connected, links to your Accounts will be displayed on your profile.  In order to integrate with some parts of this site, you will need to authenticate your Udacity and/or Github acconts.  
+					a(href='/privacy') Please ready our Privacy Policy for more information.
+				br
 				
 				
 				//- Unconfigured Services
@@ -50,13 +52,13 @@ block content
 							a(href='/auth/github', title='Connect your Github account').btn.btn-github
 								span.entypo-social.entypo-github
 								|  Connect your Github account
-				if !user.services.twitter.isConfigured
+				if !user.services.udacity.isConfigured
 					.form-group
-						label.col-sm-2.control-label Twitter
+						label.col-sm-2.control-label Udacity
 						.col-sm-10
-							a(href='/auth/twitter', title='Connect your Twitter account').btn.btn-twitter
-								span.entypo-social.entypo-twitter
-								|  Connect your Twitter account
+							a(href='/auth/udacity', title='Connect your Udacity accont').btn.btn-udacity
+								span.entypo-social
+								| Connect your Udacity account
 				if !user.services.google.isConfigured
 					.form-group
 						label.col-sm-2.control-label Google
@@ -64,18 +66,25 @@ block content
 							a(href='/auth/google', title='Connect your Google account').btn.btn-google
 								span.entypo-social.entypo-google-circles
 								|  Connect your Google account
-				if !user.services.facebook.isConfigured
+				if !user.services.twitter.isConfigured
 					.form-group
-						label.col-sm-2.control-label Facebook
+						label.col-sm-2.control-label Twitter
 						.col-sm-10
-							a(href='/auth/facebook', title='Connect your Google account').btn.btn-facebook
-								span.entypo-social.entypo-facebook
-								|  Connect your Facebook account
+							a(href='/auth/twitter', title='Connect your Twitter account').btn.btn-twitter
+								span.entypo-social.entypo-twitter
+								|  Connect your Twitter account
+				// if !user.services.facebook.isConfigured
+				// 	.form-group
+				// 		label.col-sm-2.control-label Facebook
+				// 		.col-sm-10
+				// 			a(href='/auth/facebook', title='Connect your Google account').btn.btn-facebook
+				// 				span.entypo-social.entypo-facebook
+				// 				|  Connect your Facebook account
 				
 				
 				//- Configured Services
 				
-				if user.services.github.isConfigured || user.services.twitter.isConfigured || user.services.google.isConfigured || user.services.facebook.isConfigured
+				if user.services.github.isConfigured || user.services.twitter.isConfigured || user.services.google.isConfigured || user.services.facebook.isConfigured || user.services.udacity.isConfigured
 					hr.line-dashed
 				if user.services.github.isConfigured
 					.form-group
@@ -84,13 +93,6 @@ block content
 							span.entypo-social.entypo-github
 							|  Your account is connected. 
 							a(href='?disconnect=github', title='Revoke authorization of your Github account') Disconnect
-				if user.services.twitter.isConfigured
-					.form-group
-						label.col-sm-2.control-label Twitter
-						.col-sm-10.text-muted.faux-label
-							span.entypo-social.entypo-twitter
-							|  Your account is connected. 
-							a(href='?disconnect=twitter', title='Revoke authorization of your Twitter account') Disconnect
 				if user.services.google.isConfigured
 					.form-group
 						label.col-sm-2.control-label Google
@@ -98,14 +100,29 @@ block content
 							span.entypo-social.entypo-google-circles
 							|  Your account is connected. 
 							a(href='?disconnect=google', title='Revoke authorization of your Google account') Disconnect
-				if user.services.facebook.isConfigured
+				if user.services.udacity.isConfigured
 					.form-group
-						label.col-sm-2.control-label Facebook
+						label.col-sm-2.control-label Udacity
 						.col-sm-10.text-muted.faux-label
 							span.entypo-social.entypo-facebook
 							|  Your account is connected. 
-							a(href='?disconnect=facebook', title='Revoke authorization of your Facebook account') Disconnect
+							a(href='?disconnect=udacity', title='Revoke authorization of your Udacity account') Disconnect
+				if user.services.twitter.isConfigured
+					.form-group
+						label.col-sm-2.control-label Twitter
+						.col-sm-10.text-muted.faux-label
+							span.entypo-social.entypo-twitter
+							|  Your account is connected. 
+							a(href='?disconnect=twitter', title='Revoke authorization of your Twitter account') Disconnect
 				
+				// if user.services.facebook.isConfigured
+				// 	.form-group
+				// 		label.col-sm-2.control-label Facebook
+				// 		.col-sm-10.text-muted.faux-label
+				// 			span.entypo-social.entypo-facebook
+				// 			|  Your account is connected. 
+				// 			a(href='?disconnect=facebook', title='Revoke authorization of your Facebook account') Disconnect
+
 
 				//- Public Info
 				
