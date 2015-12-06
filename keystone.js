@@ -107,7 +107,3 @@ keystone.set('cloudinary config', {
 });
 
 keystone.start();
-
-keystone.list('Nanodegree').model.drop( function(err) {
-	console.log('Dropping Nanodegrees');
-});

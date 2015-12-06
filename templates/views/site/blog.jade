@@ -7,8 +7,13 @@ block intro
 		h1.page-title=data.category ? data.category.name : 'Blog'
 		p.lead
 			| This is the blog of uHub, contributed by our members and guest authors.&nbsp;
-			a(href='/join').js-auth-trigger Join now
-			| &nbsp;to contribute.
+			if user && user.isAdmin
+				a(href='/me/create/post') Submit a post to the blog.
+			else if user && !user.isAdmin
+				a(href='/contact') Contact us if you'd like to post to the blog.
+			else
+				a(href='/join').js-auth-trigger Join now
+				| &nbsp;to contribute.
 
 block content
 	.page-content: .container

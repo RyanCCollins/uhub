@@ -8,7 +8,8 @@ var Types = keystone.Field.Types;
 
 var Nanodegree = new keystone.List('Nanodegree', {
 	track: true,
-	autokey: { from: 'title', path: 'key', unique: true }
+	autokey: { from: 'title', path: 'key', unique: true },
+	map: { name: 'title' }
 });
 
 Nanodegree.add({
@@ -16,7 +17,7 @@ Nanodegree.add({
 	logo: { type: Types.CloudinaryImage },
 	description: {type: Types.Markdown, height: 200},
 	link: {type: Types.Url },
-	projectCategories: { type: Types.Relationship, toMany: true, ref: 'ProjectCategory' }
+	projectCategories: { type: Types.Relationship, toMany: true, ref: 'ProjectCategory', drilldown: 'title' }
 });
 
 

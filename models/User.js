@@ -36,7 +36,7 @@ User.add({
 	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
 	udacity: { type: String, width: 'short' },
-	website: { type: Types.Url },
+	website: { type: Types.Url, note: 'Full website URL, including http://'},
 	bio: { type: Types.Markdown },
 	gravatar: { type: String, noedit: true },
 	enrollments: { type: Types.Relationship, ref: 'Nanodegree', many: true}
@@ -57,9 +57,9 @@ User.add({
 		want: { type: String, label: 'Wants...', dependsOn: deps.mentoring }
 	}
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Can Admin uHub' },
-	canPostProjects: { type: Boolean, label: 'Can post projects', default: true },
-	isVerified: { type: Boolean, label: 'Has a verified email address' }
+		isAdmin: { type: Boolean, label: 'Can Admin uHub' },
+		canPostProjects: { type: Boolean, label: 'Can post projects', default: true },
+		isVerified: { type: Boolean, label: 'Has a verified email address' }
 }, 'Services', {
 	services: {
 		github: {

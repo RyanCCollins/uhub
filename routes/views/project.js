@@ -65,7 +65,7 @@ exports = module.exports = function(req, res) {
 // 				locals.validationErrors = err.errors;
 // 			} else {
 // 				req.flash('success', 'Your comment has been added successfully.');
-// 				return res.redirect('/projects/browse/' + locals.project.slug);
+// 				return res.redirect('/projects/' + locals.project.slug);
 // 			}
 // 			next();
 // 		});

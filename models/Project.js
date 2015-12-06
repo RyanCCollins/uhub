@@ -10,16 +10,13 @@ var Types = keystone.Field.Types;
 var Project = new keystone.List('Project', {
 	map: { name: 'title' },
 	track: true,
-	autokey: { path: 'slug', from: 'title', unique: true }
+	autokey: { path: 'slug', from: 'title', unique: true },
+	drilldown: 'author'
 });
-
-var deps = {
-	nanodegree: 'nanodegree'
-}
 
 Project.add({
 	title: { type: String, required: true },
-	author: { type: Types.Relationship, ref: 'User', index: true },
+	author: { type: Types.Relationship, ref: 'User', index: true, initial: true },
 	description: { type: String },
 	download: { type: Types.Url, required: false },
 	githubURL: { type: Types.Url, required: false },
@@ -30,9 +27,10 @@ Project.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true, filters: { group: ':author/:enrollments'} },
-	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'}, default: 'Capstone',  dependsOn: deps.nanodegree}
+	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true },
+	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'},  initial: true, drilldown: 'nanodegree'}
 });
+
 
 /**
  * Virtuals

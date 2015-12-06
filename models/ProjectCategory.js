@@ -8,12 +8,13 @@ var Types = keystone.Field.Types;
 
 var ProjectCategory = new keystone.List('ProjectCategory', {
 	track: true,
-	autokey: { from: 'title', path: 'key', unique: true }
+	autokey: { from: 'title', path: 'key', unique: true },
+	map: { name: 'title' }
 });
 
 ProjectCategory.add({
-	title: { type: String, required: true },
-	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false}
+	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', required: true, initial: true },
+	title: { type: String, required: true, initial: true }
 });
 
 
@@ -22,7 +23,7 @@ ProjectCategory.add({
  * =============
  */
 
-ProjectCategory.relationship({ ref: 'Nanodegree', refPath: 'categories', path: 'projectcategories' });
+//ProjectCategory.relationship({ ref: 'Nanodegree', refPath: 'categories', path: 'nanodegrees' });
 
 
 /**
