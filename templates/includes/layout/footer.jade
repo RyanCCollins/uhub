@@ -3,7 +3,9 @@ footer.site-footer.site-footer--sticky: .container
 	.row
 		.col-sm-4
 			h5.footer-heading About
-			p uHub is a community for Udacity iOS Nanodegree students.  Signup to submit a project for the world to see.
+			p uHub is a community that was built for Udacity Nanodegree students to stay connected with one another and show off their accomplishments.  
+			a(href='/signup') Signup&nbsp
+			| to submit a project for the world to see.
 			ul.list-inline
 				li: a(href='/about') More about uHub
 				li: a(href='mailto:info@techrapport.com') Contact us
@@ -21,8 +23,21 @@ footer.site-footer.site-footer--sticky: .container
 				.col-xs-4
 					h5.footer-heading Resources
 					ul
-						li: a(href='/organisations') Organisations
-						li: a(href='/links') Links
+						li: a(href='/organisations') Organizations
+						li: a(href='/links') Links / Tutorials
 						li: a(href='/blog') Blog
+				.col-xs-4
+					h5.footer-heading Helpful links
+					ul
+						if user
+						li: a(href='/me') My Account
+							if user.isAdmin
+								li: a(href='/keystone') Admin Area
+
+							if user.canPostProjects
+								li: a(href='/me/create/project') Show off your Project
+
+						li: a(href='/projects') Browse Projects
+						li: a(href='/meetups') Meetups
 	.row.footer-copyright
 		p Copyright &copy; 2015 uHub. Powered by <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a> credit for website template: <a href='http://sydjs.com'>SydJS</a>.

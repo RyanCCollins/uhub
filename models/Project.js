@@ -26,7 +26,8 @@ Project.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	categories: { type: Types.Relationship, ref: 'ProjectCategory', many: true }
+	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true, filters: { group: ':author.enrollments'} },
+	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'}, default: 'Capstone', required: true }
 });
 
 /**

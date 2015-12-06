@@ -14,6 +14,7 @@ exports = module.exports = function(req, res) {
 	// };
 	locals.data = {
 		projects: [],
+		nanodegrees: [],
 		categories: []
 	};
 	
@@ -63,9 +64,9 @@ exports = module.exports = function(req, res) {
 		
 		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('project categories');
 		
-		// if (locals.data.category) {
-		// 	q.where('categories').in([locals.data.category]);
-		// }
+		if (locals.data.category) {
+			q.where('categories').in([locals.data.category]);
+		}
 		
 		q.exec(function(err, results) {
 			locals.data.projects = results;

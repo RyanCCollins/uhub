@@ -38,7 +38,9 @@ User.add({
 	udacity: { type: String, width: 'short' },
 	website: { type: Types.Url },
 	bio: { type: Types.Markdown },
-	gravatar: { type: String, noedit: true }
+	gravatar: { type: String, noedit: true },
+	enrollments: { type: Types.Relationship, ref: 'Nanodegree', many: true}
+
 }, 'Notifications', {
 	notifications: {
 		posts: { type: Boolean },
@@ -116,9 +118,6 @@ User.add({
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.udacity }
 		}
 	}
-}, 'Nanodegree Enrollments', {
-	enrollment : { type: Types.Relationship, ref: 'Nanodegree', many: true, dependsOn: deps.udacity }
-	
 },  'Meta', {
 	talkCount: { type: Number, default: 0, noedit: true },
 	lastRSVP: { type: Date, noedit: true },

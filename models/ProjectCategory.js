@@ -12,7 +12,8 @@ var ProjectCategory = new keystone.List('ProjectCategory', {
 });
 
 ProjectCategory.add({
-	name: { type: String, required: true }
+	name: { type: String, required: true },
+	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false}
 });
 
 
@@ -21,7 +22,7 @@ ProjectCategory.add({
  * =============
  */
 
-ProjectCategory.relationship({ ref: 'Project', refPath: 'categories', path: 'projects' });
+ProjectCategory.relationship({ ref: 'Nanodegree', refPath: 'categories', path: 'projectcategories' });
 
 
 /**

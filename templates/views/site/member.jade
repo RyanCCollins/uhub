@@ -56,11 +56,12 @@ block content
 								li.media
 									if project.photo.exists
 									.pull-left
-										img(src=(project.photo.exists ? member._.photo.thumbnail(20,20)), alt=project.title).img-responsive.img-square
-										
+										img(src=(project.image.exists ? member._.image.thumbnail(40,40)), alt=project.title).img-responsive.img-square
+
 								.media-body
 									h5: a(href=project.githubURL)=project.title
 									!=project.description
 						else
 							.media-body
-									h5: No projects here yet :(.
+									h5: No projects here yet :(.  Why don't you&nbsp
+										a(href='/me/create/project') submit your project.
