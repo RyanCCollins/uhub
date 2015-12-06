@@ -13,6 +13,10 @@ var Project = new keystone.List('Project', {
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 
+var deps = {
+	nanodegree: 'nanodegree'
+}
+
 Project.add({
 	title: { type: String, required: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
@@ -26,8 +30,8 @@ Project.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true, filters: { group: ':author.enrollments'} },
-	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'}, default: 'Capstone', required: true }
+	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true, filters: { group: ':author/:enrollments'} },
+	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'}, default: 'Capstone',  dependsOn: deps.nanodegree}
 });
 
 /**

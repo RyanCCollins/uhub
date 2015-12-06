@@ -8,11 +8,11 @@ var Types = keystone.Field.Types;
 
 var ProjectCategory = new keystone.List('ProjectCategory', {
 	track: true,
-	autokey: { from: 'name', path: 'key', unique: true }
+	autokey: { from: 'title', path: 'key', unique: true }
 });
 
 ProjectCategory.add({
-	name: { type: String, required: true },
+	title: { type: String, required: true },
 	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false}
 });
 

@@ -9,9 +9,9 @@ exports = module.exports = function(req, res) {
 	// Init locals
 	locals.section = 'projects';
 	locals.page.title = 'Browse Projects - uHub';
-	// locals.filters = {
-	// 	category: req.params.category
-	// };
+	locals.filters = {
+		nanodegree: req.params.nanodegree
+	};
 	locals.data = {
 		projects: [],
 		nanodegrees: [],
@@ -21,19 +21,19 @@ exports = module.exports = function(req, res) {
 	// Load all categories
 	view.on('init', function(next) {
 		
-		keystone.list('ProjectCategory').model.find().sort('name').exec(function(err, results) {
+		keystone.list('Nanodegree').model.find().sort('name').exec(function(err, results) {
 			
 			if (err || !results.length) {
 				return next(err);
 			}
 			
-			locals.data.categories = results;
+			locals.data.nanodegrees = results;
 			
 			// Load the counts for each category
-			async.each(locals.data.categories, function(category, next) {
+			async.each(locals.data.nanodegrees, function(nanodegree, next) {
 				
-				keystone.list('Project').model.count().where('category').in([category.id]).exec(function(err, count) {
-					category.projectCount = count;
+				keystone.list('Project').model.count().where('nanodegree').in([nanodegree.id]).exec(function(err, count) {
+					nanodegree.projectCount = count;
 					next(err);
 				});
 				
@@ -45,12 +45,12 @@ exports = module.exports = function(req, res) {
 		
 	});
 	
-	// Load the current category filter
+	// Load the current nanodegree filter
 	view.on('init', function(next) {
 		
-		if (req.params.category) {
-			keystone.list('ProjectCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
-				locals.data.category = result;
+		if (req.params.nanodegree) {
+			keystone.list('Nanodegree').model.findOne({ key: locals.filters.nanodegree }).exec(function(err, result) {
+				locals.data.nanodegrees = result;
 				next(err);
 			});
 		} else {
@@ -62,10 +62,10 @@ exports = module.exports = function(req, res) {
 	// Load the posts
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('project categories');
+		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('project nanodegrees');
 		
 		if (locals.data.category) {
-			q.where('categories').in([locals.data.category]);
+			q.where('nanodegrees').in([locals.data.category]);
 		}
 		
 		q.exec(function(err, results) {

@@ -4,7 +4,7 @@ include ../../mixins/project
 
 block intro
 	.page-intro: .container
-		h1.page-title=data.category ? data.category.name : 'Project Gallery'
+		h1.page-title=data.nanodegree ? data.nanodegree.name : 'Project Gallery'
 		p.lead
 			| Welcome to the project gallery!  Here are some recent projects posted to uHub by our members.&nbsp;
 			if user.canPostProjects
@@ -19,9 +19,9 @@ block intro
 block content
 	.page-content: .container
 		.row
-			div(class= data.categories.length || !data.projects.length ? 'col-md-10' : 'col-md-10 col-md-offset-1')
-				if filters.category && !data.category
-					h3 Invalid Category.
+			div(class= data.nanodegrees.length || !data.projects.length ? 'col-md-10' : 'col-md-10 col-md-offset-1')
+				if filters.nanodegree && !data.nanodegree
+					h3 Invalid Nanodegree.
 				else
 					if data.projects.length
 						.project-cards.row(itemscope itemtype="http://schema.org/Blog")
@@ -34,11 +34,11 @@ block content
 						else
 							h3.text-muted There are no projects yet.
 			
-			if data.categories.length
+			if data.nanodegrees.length
 				.col-md-2
-					if data.categories.length
-						h5.text-muted Filter by tag
+					if data.nanodegrees.length
+						h5.text-muted Filter by Nanodegree
 						ul.list-unstyled.tags-list
-							li: a(href='/projects', class=!data.categories ? 'active' : false) All
-							each tag in data.categories
-								li: a(href='/projects/' + tag.key, class=data.category && data.category.id == tag.id ? 'active' : false).list-group-item= tag.name
+							li: a(href='/projects', class=!data.nanodegrees ? 'active' : false) All
+							each tag in data.nanodegrees
+								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item= tag.name
