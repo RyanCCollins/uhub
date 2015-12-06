@@ -17,8 +17,8 @@ html
 		//meta(name="apple-itunes-app", content="app-id=XXXXXXXXXX")
 		
 		title= page.title
+		script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
 		link(href="/styles/site.min.css", rel="stylesheet")
 		link(href='https://fonts.googleapis.com/css?family=Dancing+Script', rel='stylesheet', type='text/css')
 
@@ -68,7 +68,6 @@ html
 		var uHub = {};
 		uHub.meetup = !{JSON.stringify(meetup)};
 
-	
 	script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')

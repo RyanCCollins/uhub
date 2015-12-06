@@ -31,10 +31,10 @@ footer.site-footer.site-footer--sticky: .container
 					ul
 						if user
 						li: a(href='/me') My Account
-							if user.isAdmin
+							if user && user.isAdmin
 								li: a(href='/keystone') Admin Area
 
-							if user.canPostProjects
+							if user && user.canPostProjects
 								li: a(href='/me/create/project') Show off your Project
 
 						li: a(href='/projects') Browse Projects

@@ -26,31 +26,7 @@ $(function() {
 		};
 	});
 	
-	//Hover dropdown menu:
-	$(document).ready(function() {
-    $('.nav .dropdown').hover(function() {
-        $(this).addClass('open');
-    }, function() {
-        $(this).removeClass('open');
-    });
-	});
-	
-	$('ul.nav li.dropdown').hover(function() {
-  		$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-	}, function() {
-  		$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-	});
-	
-	// Generic confirms
-	// ------------------------------
-	
-	$('.js-confirm').click(function(e) {
-		if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
-			return e.preventDefault();
-	});
-	
 
-	
 	
 	// UI Reveal
 	// ------------------------------
