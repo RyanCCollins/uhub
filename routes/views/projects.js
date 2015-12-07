@@ -21,7 +21,7 @@ exports = module.exports = function(req, res) {
 	// Load all categories
 	view.on('init', function(next) {
 		
-		keystone.list('Nanodegree').model.find().sort('name').exec(function(err, results) {
+		keystone.list('Nanodegree').model.find().sort('title').exec(function(err, results) {
 			
 			if (err || !results.length) {
 				return next(err);
@@ -34,6 +34,7 @@ exports = module.exports = function(req, res) {
 				
 				keystone.list('Project').model.count().where('nanodegree').in([nanodegree.id]).exec(function(err, count) {
 					nanodegree.projectCount = count;
+
 					next(err);
 				});
 				
@@ -59,13 +60,13 @@ exports = module.exports = function(req, res) {
 		
 	});
 	
-	// Load the posts
+	// Load the projects
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('project nanodegrees');
+		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('author projects');
 		
-		if (locals.data.category) {
-			q.where('nanodegrees').in([locals.data.category]);
+		if (locals.data.nanodegree) {
+			q.where('nanodegrees').in([locals.data.nanodegree]);
 		}
 		
 		q.exec(function(err, results) {
@@ -79,3 +80,5 @@ exports = module.exports = function(req, res) {
 	view.render('site/projects');
 	
 }
+
+

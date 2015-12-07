@@ -27,6 +27,7 @@ Nanodegree.add({
  */
 
 Nanodegree.relationship({ ref: 'ProjectCategory', refPath: 'categories', path: 'projectcategories' });
+Nanodegree.relationship({ ref: 'Project', refPath: 'projects', path: 'nanodegree'});
 Nanodegree.relationship({ ref: 'User', refPath: 'author', path: 'enrollments'});
 
 /**

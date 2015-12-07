@@ -14,21 +14,25 @@ var Project = new keystone.List('Project', {
 	drilldown: 'author'
 });
 
+var deps = {
+
+	appetize: { nanodegree.title = 'iOS Developer' || nanodegree.title = 'Android Developer' }
+}
+
 Project.add({
 	title: { type: String, required: true },
 	author: { type: Types.Relationship, ref: 'User', index: true, initial: true },
-	description: { type: String },
-	download: { type: Types.Url, required: false },
-	githubURL: { type: Types.Url, required: false },
-	appetizeURL: { type: String, required: false },
-	publishedDate: { type: Types.Date, index: true },
-	image: { type: Types.CloudinaryImage },
-	content: {
-		brief: { type: Types.Html, wysiwyg: true, height: 150 },
-		extended: { type: Types.Html, wysiwyg: true, height: 400 }
-	},
+	state: { type: Types.Select, options: 'draft, published, archived', default: 'published', index: true },
+	about: { type: Types.Markdown, wysiwyg: true, height: 250, 'Tell us all about your project (in Markdown)!' },
 	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true },
 	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'},  initial: true, drilldown: 'nanodegree'}
+}, 'Images', {
+	featureImage: { type: Types.CloudinaryImage },
+	gallery: { type: Types.CloudinaryImages, note: 'Note: Upload the photo gallery for your project here.  Note: only the first 12 photos will be shown.'}
+}, 'Links', {
+	downloadURL: { type: Types.Url, required: false, note: 'This is in addition to the github page.  Link to the best place to download the project.'},
+	githubURL: { type: Types.Url, required: false, note: 'This will help people download and run your project.  It will also help automate the submission of your project.' },
+	appetizeURL: { type: String, required: false, note: 'If your project is an iOS or Android app, you can upload it to Appetize to provide an emulation on the site.', dependsOn: deps.appetize}
 });
 
 
@@ -36,10 +40,6 @@ Project.add({
  * Virtuals
  * ========
  */
-
-Project.schema.virtual('content.full').get(function() {
-	return this.content.extended || this.content.brief;
-});
 
 /**
  * Notifications

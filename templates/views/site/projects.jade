@@ -4,12 +4,12 @@ include ../../mixins/project
 
 block intro
 	.page-intro: .container
-		h1.page-title=data.nanodegree ? data.nanodegree.name : 'Project Gallery'
+		h1.page-title=data.nanodegree ? data.nanodegree.title : 'Project Gallery'
 		p.lead
 			| Welcome to the project gallery!  Here are some recent projects posted to uHub by our members.&nbsp;
 			if user.canPostProjects
 				p 
-					a(href='/me/create/project') Submit your capstone project.
+				a(href='/me/create/project') Submit your capstone project.
 				if user.projects
 				p 
 					a(href='/me/projects') View or edit your projects.
@@ -24,13 +24,13 @@ block content
 					h3 Invalid Nanodegree.
 				else
 					if data.projects.length
-						.project-cards.row(itemscope itemtype="http://schema.org/Blog")
+						.container(style='margin-top:10px;')
+							.row.form-group
 							each project in data.projects
 								+project(project)
-							hr
 					else
-						if data.category
-							h3.text-muted No projects in the category #{data.category.name}.
+						if data.nanodegree
+							h3.text-muted No projects in the nanodegree #{data.nanodegree.title}.
 						else
 							h3.text-muted There are no projects yet.
 			
@@ -41,4 +41,4 @@ block content
 						ul.list-unstyled.tags-list
 							li: a(href='/projects', class=!data.nanodegrees ? 'active' : false) All
 							each tag in data.nanodegrees
-								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item= tag.name
+								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item= tag.title

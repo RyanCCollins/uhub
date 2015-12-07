@@ -17,10 +17,11 @@ html
 		//meta(name="apple-itunes-app", content="app-id=XXXXXXXXXX")
 		
 		title= page.title
-		script(src='/js/lib/jquery/jquery-1.10.2.min.js')
+		
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
 		link(href='https://fonts.googleapis.com/css?family=Dancing+Script', rel='stylesheet', type='text/css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
 
 		if user && user.canAccessKeystone
 			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
@@ -67,7 +68,7 @@ html
 	script.
 		var uHub = {};
 		uHub.meetup = !{JSON.stringify(meetup)};
-
+	script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js')
 	script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
