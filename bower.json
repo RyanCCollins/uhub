@@ -22,6 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "Slidebars": "~0.10.3"
+    "Slidebars": "~0.10.3",
+    "bootstrap": "~3.3.6"
   }
 }

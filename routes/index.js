@@ -76,12 +76,12 @@ exports = module.exports = function (app) {
 	app.get('/blog/:category?', routes.views.blog);
 	app.all('/blog/post/:post', routes.views.post);
 	app.get('/projects/:nanodegree', routes.views.projects);
-	app.get('/projects/:project', routes.views.project);
+	app.get('/projects/project/:project', routes.views.project);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 	app.get('/privacy', routes.views.privacy);
 
-	app.get('/projects', routes.views.projects);
+	app.all('/projects', routes.views.projects);
 
 	// Session
 	app.all('/join', routes.views.session.join);

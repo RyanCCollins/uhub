@@ -12,12 +12,15 @@ block content
 					//- Title
 					.form-group
 						h1 Share your capstone project
-						input(type='text', id='post-title', name='title', placeholder='Project title').input.input-xl.input-faded
+						input(type='text', id='project-title', name='title', placeholder='Project title').input.input-xl.input-faded
 					
+					.form-group
+						label Brief Description of your Project
+						textarea(type='text', id='project-description', name='description',  placeholder='Brief Description', note='Enter a brief description of your project to be included in the project gallery').input.input-faded
 					
 					//- Image
 					.form-group
-						label Upload image
+						label Upload Feature Image
 						input(type='file', name='image_upload')
 					
 					//- Link
@@ -32,8 +35,8 @@ block content
 					
 					//- Content
 					.form-group
-						label Share a bit about your project
-						textarea(name='content.extended', class='wysiwyg').input.input-faded
+						label Share a bit about your project (in markdown)
+						textarea(name='about', id='project-about' class='wysiwyg').input.input-faded
 					
 					
 					//- Submit
@@ -46,7 +49,7 @@ block js
 	script(src='/js/lib/tinymce/jquery.tinymce.min.js')
 	script.
 		jQuery(function($) {
-			$( "#project-title" ).focus();
+			$( "#project-about" ).focus();
 			tinymce.init({
 				selector: 'textarea.wysiwyg',
 				menubar: false,

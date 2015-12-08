@@ -1,20 +1,15 @@
-//- _paginate.jade
 
-//- This examples makes use of Bootstrap 3.x pagination classes
-
-if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
-  .navigation.well-sm#pagination
-    ul.pager
-      if paginate.hasPreviousPages
-        li.previous
-          a(href=paginate.href(true)).prev
-            i.fa.fa-arrow-circle-left
-            |  Previous
-      if pages
-        each page in pages
-          a.btn.btn-default(href=page.url)= page.number
-      if paginate.hasNextPages(pageCount)
-        li.next
-          a(href=paginate.href()).next
-            | Next&nbsp;
-            i.fa.fa-arrow-circle-right
+mixin pagination(projects)
+	if projects.totalPages > 1
+		ul.pagination
+			if projects.previous
+				li: a(href='?page=' + projects.previous): span.entypo.entypo-chevron-thin-left
+			else
+				li.disabled: a(href='?page=' + 1): span.entypo.entypo-chevron-thin-left
+			each p, i in projects.pages
+				li(class=projects.currentPage == p ? 'active' : null)
+					a(href='?page=' + (p == '...' ? (i ? projects.totalPages : 1) : p ))= p
+			if projects.next
+				li: a(href='?page=' + projects.next): span.entypo.entypo-chevron-thin-right
+			else
+				li.disabled: a(href='?page=' + projects.totalPages): span.entypo.entypo-chevron-thin-right

@@ -62,18 +62,27 @@ exports = module.exports = function(req, res) {
 	
 	// Load the projects
 	view.on('init', function(next) {
+
 		
-		var q = keystone.list('Project').model.find().where('state', 'published').sort('-publishedDate').populate('author projects');
+		var q = keystone.list('Project').paginate({
+			page: req.query.page || 1,
+			perPage: 10,
+			maxPages: 10
+		})
+		.where('state', 'published')
+		.sort('-createdAt')
+		.populate('projects nanodegree');
+		
 		
 		if (locals.data.nanodegree) {
 			q.where('nanodegrees').in([locals.data.nanodegree]);
 		}
-		
-		q.exec(function(err, results) {
-			locals.data.projects = results;
+
+		q.exec(function(err, projects) {
+			if (err) res.err(err);
+			locals.data.projects = projects;
 			next(err);
 		});
-		
 	});
 	
 	// Render the view

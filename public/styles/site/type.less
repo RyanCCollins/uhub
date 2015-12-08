@@ -146,6 +146,24 @@ cite    { font-style: normal; }
 	font-style: italic;
 }
 
+.text-brand {
+	font-family: @font-family-brand;
+	color: mix(white, @nav-primary, 95%);
+		> a {
+		color: mix(white, @nav-primary, 95%) !important;
+
+		&:hover {
+			color: mix(@nav-primary, white, 65%);
+			text-decoration: none;
+		}
+		&:active,
+		&:focus {
+			color: fade(@nav-primary, 70%);
+			text-decoration: none;
+		}
+	}
+}
+
 // Contextual colors
 .text-muted {
 	color: @text-muted;

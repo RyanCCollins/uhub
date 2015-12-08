@@ -8,7 +8,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	// Init locals
-	locals.section = 'projects';
+	locals.section = 'project';
 	locals.filters = {
 		project: req.params.project
 	};
@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
 
 		Project.model.findOne()
 			.where('slug', locals.filters.project)
-			.populate('author nanodegrees')
+			.populate('project')
 			.exec(function(err, project) {
 				
 				if (err) return res.err(err);
@@ -29,6 +29,7 @@ exports = module.exports = function(req, res) {
 					//locals.project.populateRelated('comments[author]', next);
 					locals.page.title = project.title + ' - Student Projects - uHub';
 				} else {
+					console.log('Not a valid project');
 					return res.notfound('Project not found');
 				}
 				

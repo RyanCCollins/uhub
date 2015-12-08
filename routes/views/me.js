@@ -27,6 +27,7 @@ exports = module.exports = function(req, res) {
 			.sort('-createdAt')
 	);
 	
+
 	view.on('post', { action: 'profile.details' }, function(next) {
 	
 		req.user.getUpdateHandler(req).process(req.body, {

@@ -6,8 +6,8 @@
 // Global values
 // --------------------------------------------------
 
-
-@brand-primary:         #2e99e5;
+@nav-primary:			#6b55a9;
+@brand-primary:         #6b55a9;
 @brand-secondary:       #d55500;
 @brand-success:         #24b35f;
 @brand-warning:         #f0ad4e;
@@ -55,6 +55,7 @@
 @font-family-sans-serif:  "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:       "Times New Roman", Times, Georgia, serif;
 @font-family-cursive:	  "Dancing Script", cursive;
+@font-family-brand:		  "Grand Hotel", cursive;
 @font-size-base:          13px;
 @font-size-large:         1.4em;
 @font-size-small:         0.8em;
@@ -79,7 +80,7 @@
 @gray-light-nav:             #b4bcc2;   // #999
 @gray-lighter-nav:           #ecf0f1; // #eee
 
-@brand-primary-nav:         #2C3E50;
+@brand-primary-nav:         #000000;
 @brand-success-nav:         #18BC9C;
 @brand-info-nav:            #3498DB;
 @brand-warning-nav:         #F39C12;
@@ -103,53 +104,8 @@
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
 @navbar-default-color:             #777;
-@navbar-default-bg:                @brand-primary-nav;
+@navbar-default-bg:               @nav-primary;
 @navbar-default-border:            transparent;
-
-// Navbar links
-@navbar-default-link-color:                #18BC9C;
-@navbar-default-link-hover-color:          @brand-success-nav;
-@navbar-default-link-hover-bg:             transparent;
-@navbar-default-link-active-color:         #18BC9C;
-@navbar-default-link-active-bg:            darken(@navbar-default-bg, 10%);
-@navbar-default-link-disabled-color:       #ccc;
-@navbar-default-link-disabled-bg:          transparent;
-
-// Navbar brand label
-@navbar-default-brand-color:               @navbar-default-link-color;
-@navbar-default-brand-hover-color:         @navbar-default-link-hover-color;
-@navbar-default-brand-hover-bg:            transparent;
-
-// Navbar toggle
-@navbar-default-toggle-hover-bg:           darken(@navbar-default-bg, 10%);
-@navbar-default-toggle-icon-bar-bg:        #fff;
-@navbar-default-toggle-border-color:       darken(@navbar-default-bg, 10%);
-
-
-//=== Inverted navbar
-// Reset inverted navbar basics
-@navbar-inverse-color:                      #fff;
-@navbar-inverse-bg:                         @brand-success-nav;
-@navbar-inverse-border:                     transparent;
-
-// Inverted navbar links
-@navbar-inverse-link-color:                 #fff;
-@navbar-inverse-link-hover-color:           @brand-success-nav;
-@navbar-inverse-link-hover-bg:              transparent;
-@navbar-inverse-link-active-color:          @brand-success-nav;
-@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 5%);
-@navbar-inverse-link-disabled-color:        #ccc;
-@navbar-inverse-link-disabled-bg:           transparent;
-
-// Inverted navbar brand label
-@navbar-inverse-brand-color:                @navbar-inverse-link-color;
-@navbar-inverse-brand-hover-color:          @navbar-inverse-link-hover-color;
-@navbar-inverse-brand-hover-bg:             transparent;
-
-// Inverted navbar toggle
-@navbar-inverse-toggle-hover-bg:            darken(@navbar-inverse-bg, 10%);
-@navbar-inverse-toggle-icon-bar-bg:         #fff;
-@navbar-inverse-toggle-border-color:        darken(@navbar-inverse-bg, 10%);
 
 
 //== Navs

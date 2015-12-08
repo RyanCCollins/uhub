@@ -32,13 +32,14 @@ block content
 						if data.nanodegree
 							h3.text-muted No projects in the nanodegree #{data.nanodegree.title}.
 						else
-							h3.text-muted There are no projects yet.
-			
+							h3.text-muted There are no projects yet.	
 			if data.nanodegrees.length
-				.col-md-2.text-center
+				.col-md-2
 					if data.nanodegrees.length
 						h5.text-muted Filter by Nanodegree
 						ul.list-unstyled.tags-list
 							li: a(href='/projects', class=!data.nanodegrees ? 'active' : false) All
 							each tag in data.nanodegrees
 								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item=tag.title
+			if data.projects.totalPages > 1
+				+paginate(data.projects)
