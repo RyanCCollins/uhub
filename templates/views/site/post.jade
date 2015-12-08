@@ -41,7 +41,7 @@ block content
 					.post-image.mv-3: img(src=post._.image.fit(720,420)).img-responsive.img-thumbnail
 				!= post.content.full
 
-				//- Comment
+					//- Comment
 					.comments
 						h4.mb-1=post.comments.length == 0 ? 'Be the first to reply' : plural(post.comments.length, '* comment', '* comments')
 						for comment in post.comments

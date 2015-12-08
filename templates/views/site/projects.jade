@@ -9,7 +9,7 @@ block intro
 			| Welcome to the project gallery!  Here are some recent projects posted to uHub by our members.&nbsp;
 			if user.canPostProjects
 				p 
-				a(href='/me/create/project') Submit your capstone project.
+					a(href='/me/create/project') Submit your capstone project.
 				if user.projects
 				p 
 					a(href='/me/projects') View or edit your projects.
@@ -35,10 +35,10 @@ block content
 							h3.text-muted There are no projects yet.
 			
 			if data.nanodegrees.length
-				.col-md-2
+				.col-md-2.text-center
 					if data.nanodegrees.length
 						h5.text-muted Filter by Nanodegree
 						ul.list-unstyled.tags-list
 							li: a(href='/projects', class=!data.nanodegrees ? 'active' : false) All
 							each tag in data.nanodegrees
-								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item= tag.title
+								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item=tag.title

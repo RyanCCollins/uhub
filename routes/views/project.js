@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
 
 		Project.model.findOne()
 			.where('slug', locals.filters.project)
-			.populate('author categories')
+			.populate('author nanodegrees')
 			.exec(function(err, project) {
 				
 				if (err) return res.err(err);
@@ -45,32 +45,32 @@ exports = module.exports = function(req, res) {
 			.limit('1')
 	);
 	
-// 	view.on('project', { action: 'create-comment' }, function(next) {
+	view.on('project', { action: 'create-comment' }, function(next) {
 
-// 		// handle form
-// 		var newPostComment = new PostComment.model({
-// 				post: locals.post.id,
-// 				author: locals.user.id
-// 			}),
-// 			updater = newPostComment.getUpdateHandler(req, res, {
-// 				errorMessage: 'There was an error creating your comment:'
-// 			});
+		// handle form
+		var newProjectComment = new ProjectComment.model({
+				project: locals.project.id,
+				author: locals.user.id
+			}),
+			updater = newProjectComment.getUpdateHandler(req, res, {
+				errorMessage: 'There was an error creating your comment:'
+			});
 			
-// 		updater.process(req.body, {
-// 			flashErrors: true,
-// 			logErrors: true,
-// 			fields: 'content'
-// 		}, function(err) {
-// 			if (err) {
-// 				locals.validationErrors = err.errors;
-// 			} else {
-// 				req.flash('success', 'Your comment has been added successfully.');
-// 				return res.redirect('/projects/' + locals.project.slug);
-// 			}
-// 			next();
-// 		});
+		updater.process(req.body, {
+			flashErrors: true,
+			logErrors: true,
+			fields: 'content'
+		}, function(err) {
+			if (err) {
+				locals.validationErrors = err.errors;
+			} else {
+				req.flash('success', 'Your comment has been added successfully.');
+				return res.redirect('/projects/project/' + locals.project.slug);
+			}
+			next();
+		});
 
-// 	});
+	});
 	
 	// Render the view
 	view.render('site/project');

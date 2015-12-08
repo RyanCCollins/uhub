@@ -2,29 +2,26 @@ mixin project(project)
 		.col-xs-10.col-md-5
 			.panel.panel-default
 				.panel-heading
-					h3.panel-title=project.title
+					h2.panel-title.lead.text-center=project.title
+						p.small.text-center
+							| by&nbsp
+							a(href='/members', rel='author')=project.author.name.full
 				.panel-image
 					if project.featureImage.exists
 						img(src=project._.featureImage.fill(700,300), alt=project.title).img-responsive
 					else
 						img.panel-image-preview(src='http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52d09387ae003_1.JPG')
-					label(for='toggle-' + project._.id)
-				input.panel-image-toggle(type='checkbox', checked='' id= '#toggle-' + project._.id)
+					label(for='toggle-' + project.slug)
+				input.panel-image-toggle(type='checkbox', checked='' id= '#toggle-' + project.slug)
 				.panel-body
-					h4
-					| Created by&nbsp
-					a(href='/members', rel='author')=project.author.name.full
-					p
-						project.about.html
+					p=project.briefDescription
+					a.btn.btn-xs.btn-primary.pull-right(type='button' href='/projects/project/' + project.slug) Read More
+							span.glyphicon.glyphicon-chevron-right
 				.panel-footer.text-center
-					a(href=project.downloadURL): span.glyphicon.glyphicon-download
-					span.fa.fa-facebook
-						.fb-like(data-href="http://www.uHub.io/projects" + project.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
-					span.fa.fa-twitter
-						a(href="https://twitter.com/share", data-via="uHub", data-hashtags="uHub", data-count="button", data-dnt="true").twitter-share-button
-					span.fa.fa-google-plus
-						.g-plusone(data-size="medium")
-				
+						a(href='{project.downloadURL}'): span.glyphicon.glyphicon-download.inline
+						a(href="http://www.uHub.io/projects/project/" + project.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
+							span.fa.fa-facebook
+						a(href="https://twitter.com/share", data-via="uHub", data-hashtags="uHub", data-count="button", data-url='http://uhub.io/projects/project/' + project.slug, data-dnt="true").twitter-share-button: span.fa.fa-twitter
 block js
 	script(src='/js/common/share.js')
 	script(src="https://apis.google.com/js/plusone.js")

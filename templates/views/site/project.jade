@@ -1,34 +1,87 @@
 extends ../../layouts/default
 
 block content
-	.container-sm
-		a(href='/projects').text-muted &larr; Back to the project gallery
-		article.full-project
-			.row.form-group
-			.col-xs-12.col-md-6
-			.panel.panel-default
-			.panel-heading
-				h3.panel-title project.title
-			.panel-image.hide-panel-body
-				img.panel-image-preview(src='http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52c470899a2e1_1.JPG')
-					label(for='toggle-3')
-					input#toggle-3.panel-image-toggle(type='checkbox')
-					.panel-body
-						h4 project.description
-						p
-						| created by&nbsp
-						| a(href='/members', rel='author')=project.author.name.full
-						| project.content.brief
-					.panel-footer.text-center
-						a(href='project.download')
-					span.glyphicon.glyphicon-download
-						a(href='project.githubURL')
-					span.fa.fa-github
-						a(href="https://twitter.com/share", data-via="uHub", data-hashtags="uHub", data-count="button", data-dnt="true").twitter-share-button
-					span.fa.fa-twitter
-						.fb-like(data-href="http://www.uHub.io/projects/" + project.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
-					span.share-button
+	.container-fluid
+		.row
+			a(href='/projects').text-muted &larr; Back to the Project Gallery
+			article.full-project
+				if !project
+					h2 Invalid Project.
+				else
+					header
+						if project.state != 'published' && user.isAdmin
+							.mt-1: .alert.alert-danger This Project has not been published yet. 
+								a(href='/keystone/projects/' + project.id).alert-link Open Keystone
+								|  to publish it.
+					
+					h1.project-page__title= project.title
+					p.project-page__byline Posted
+						if project.author
+							|  by&nbsp;
+							a(href='/members', rel='author')=project.author.name.full
+						if project.publishedDate
+							|  on #{project._.publishedDate.format('MMMM D, YYYY')}
+						if project.nanodegrees && project.nanodegrees.length
+							|  for the&nbsp; 
+							a(href='/projects/' + project.nanodegrees.key)= project.nanodegrees.title
+					
+					//- sharing buttons
+					.share-buttons
+						span.share-button
+							.fb-like(data-href="http://www.uHub.io/projects/" + project.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
+						span.share-button
+							a(href="https://twitter.com/share", data-via="uHub", data-hashtags="uHub", data-count="button", data-dnt="true").twitter-share-button Tweet
+						span.share-button
+							.g-plusone(data-size="medium")
+						hr
+				if project.featureImage.exists
+					.project-image.mv-3: img(src=project._.image.fill(720,420)).img-responsive.
 
+				.row
+					div(class= project.buildInformation.exists ? 'col-md-10 col-md-offset-2' : 'col-md-10')
+						!= project.content.full
+					if project.buildInformation.exists
+					.col-md-2
+						.panel.panel-info
+							.panel-heading
+								h3.panel-title
+								| Build Information
+						.panel-body: project.buildInformation
+				
+				if project.gallery.exists
+					+project-image-gallery(project)
+
+				if project.appetize.exists
+					+project-embed(project)
+
+					//- Comment
+					.comments
+						h4.mb-1=project.comments.length == 0 ? 'Be the first to reply' : plural(project.comments.length, '* comment', '* comments')
+						for comment in project.comments
+							if comment.author
+								.comment.media
+									.pull-left
+										img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
+									.media-body
+										h6.mt-0
+											=comment.author.name.full
+											span.text-muted  &middot; #{moment(comment.publishedOn).fromNow()}
+										!=comment.content.html
+					if user
+						//- Reply form
+						form(method='post').comment-form.mt-5
+							input(type='hidden', name='action', value='create-comment')
+							.media
+								.pull-left
+									img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
+								.media-body
+									textarea(placeholder='Add your comment...', name='content').form-control
+									.mv-1
+										button(type='submit').btn.btn-success Submit
+
+block js
+	script(src='/js/common/share.js')
+	script(src="https://apis.google.com/js/plusone.js")
 block js
 	script(src='/js/common/share.js')
 	script(src="https://apis.google.com/js/plusone.js")

@@ -15,32 +15,39 @@ var Project = new keystone.List('Project', {
 });
 
 var deps = {
-
-	appetize: { nanodegree.title = 'iOS Developer' || nanodegree.title = 'Android Developer' }
+	appetize: { 'includeAppetizeEmbed' : true },
+	buildInfo: { 'includeBuildInformation': true }
 }
 
 Project.add({
 	title: { type: String, required: true },
 	author: { type: Types.Relationship, ref: 'User', index: true, initial: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'published', index: true },
-	about: { type: Types.Markdown, wysiwyg: true, height: 250, 'Tell us all about your project (in Markdown)!' },
+	briefDescription: { type: String, required: true, initial: true},
+	about: { type: Types.Markdown, wysiwyg: true, toolbarOptions: { hiddenButtons: 'H1,H6,Code' }, height: 250, note: 'Tell us all about your project (in Markdown)!' },
 	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true },
 	categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'},  initial: true, drilldown: 'nanodegree'}
+}, 'Build Information', {
+	includeBuildInformation: { type: Boolean, default: true},
+	//buildInformation: { type: Types.Relationship, ref 'BuildInformation', toMany: false, dependsOn: deps.buildInfo }
+	buildInformation: {type: String, dependsOn: deps.buildInfo}
 }, 'Images', {
 	featureImage: { type: Types.CloudinaryImage },
 	gallery: { type: Types.CloudinaryImages, note: 'Note: Upload the photo gallery for your project here.  Note: only the first 12 photos will be shown.'}
 }, 'Links', {
 	downloadURL: { type: Types.Url, required: false, note: 'This is in addition to the github page.  Link to the best place to download the project.'},
 	githubURL: { type: Types.Url, required: false, note: 'This will help people download and run your project.  It will also help automate the submission of your project.' },
-	appetizeURL: { type: String, required: false, note: 'If your project is an iOS or Android app, you can upload it to Appetize to provide an emulation on the site.', dependsOn: deps.appetize}
+}, 'Embeds', {
+	includeAppetizeEmbed: { type: Boolean, default: false},
+	appetizeURL: { type: String, required: false, note: 'If your project is an iOS or Android app, you can upload it to Appetize to provide an emulation on the site.', dependsOn: deps.appetize }
 });
 
 
 /**
- * Virtuals
+ * relationships
  * ========
  */
-
+Post.relationship({ ref: 'ProjectComment', refPath: 'project', path: 'comments' });
 /**
  * Notifications
  * =============

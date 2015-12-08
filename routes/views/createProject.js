@@ -36,7 +36,7 @@ exports = module.exports = function(req, res) {
 			} else {
 				newProject.notifyAdmins();
 				req.flash('success', 'Your project has been added' + ((newProject.state == 'draft') ? ' and will appear on the site once it\'s been approved' : '') + '.');
-				return res.redirect('/projects/browse/' + newProject.slug);
+				return res.redirect('/projects/project/' + newProject.slug);
 			}
 			next();
 		});

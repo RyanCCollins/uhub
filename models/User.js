@@ -39,7 +39,8 @@ User.add({
 	website: { type: Types.Url, note: 'Full website URL, including http://'},
 	bio: { type: Types.Markdown },
 	gravatar: { type: String, noedit: true },
-	enrollments: { type: Types.Relationship, ref: 'Nanodegree', many: true}
+	enrollments: { type: Types.Relationship, ref: 'Nanodegree', many: true},
+	enrollmentStatus: {type: Types.Select, options: ['Student', 'Graduate'], required: true, initial: true, default: 'Student'}
 
 }, 'Notifications', {
 	notifications: {
