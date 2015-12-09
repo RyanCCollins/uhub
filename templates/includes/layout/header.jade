@@ -18,7 +18,6 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 				ul.navbar-nav.navbar-nav--left
 					each link in navLinks
 						li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-					li: a(href='mailto:info@techrapport.com') Contact
 				ul.navbar-nav.navbar-nav--right
 					if user
 						li.dropdown
@@ -30,6 +29,8 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 								if user.canPostProjects
 								li
 									a(href='/me/create/project') Post your Project
+								li 
+									a(href='/chats/') Chat Rooms
 								if user.isAdmin
 								li
 									a(href='/keystone') Admin Area

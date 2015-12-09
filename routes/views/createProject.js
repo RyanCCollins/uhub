@@ -6,7 +6,7 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
 		locals = res.locals;
 	
-	locals.section = 'me';
+	locals.section = 'createproject';
 	locals.page.title = 'Submit a project - uHub';
 	
 	view.on('project', { action: 'create-project' }, function(next) {

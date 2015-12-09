@@ -3,9 +3,10 @@ footer.site-footer.site-footer--sticky: .container
 	.row
 		.col-sm-4
 			h5.footer-heading About
-			p uHub is a community that was built for Udacity Nanodegree students to stay connected with one another and show off their accomplishments.  
-			a(href='/signup') Signup&nbsp
-			| to submit a project for the world to see.
+			p uHub is a community that was built for aspiring developers and tech students to collaborate with one another, stay connected and show off their accomplishments.
+			if !user
+				a(href='/signup') Signup&nbsp
+				| to submit a project for the world to see.
 			ul.list-inline
 				li: a(href='/about') More about uHub
 				li: a(href='mailto:info@techrapport.com') Contact us
@@ -16,28 +17,33 @@ footer.site-footer.site-footer--sticky: .container
 					h5.footer-heading Members
 					ul
 						li: a(href='/members') Members
-						li: a(href='/mentoring') Mentoring
-						li: a(href='/members/mentors') Mentors
+						li: a(href='/members/mentors') Mentors&nbsp
+							a(href='/mentoring') / Mentoring
+						li: a(href='/organisations') Organizations
 						if !user
 							li: a(href='/join').js-auth-trigger Become a Member
+						else if user
+							li: a(href='/me') My Account
+						if user && user.isAdmin
+							li: a(href='/keystone') Admin Area
+
 				.col-xs-4
 					h5.footer-heading Resources
 					ul
-						li: a(href='/organisations') Organizations
 						li: a(href='/links') Links / Tutorials
 						li: a(href='/blog') Blog
+						li: a(href='/about') About
+						li: a(href='mailto: info@uhub.io') Get in Touch
 				.col-xs-4
-					h5.footer-heading Helpful links
+					h5.footer-heading Community
 					ul
-						if user
-						li: a(href='/me') My Account
-							if user && user.isAdmin
-								li: a(href='/keystone') Admin Area
-
-							if user && user.canPostProjects
-								li: a(href='/me/create/project') Show off your Project
-
-						li: a(href='/projects') Browse Projects
+						if user && user.canPostProjects
+							li: a(href='/me/create/project') Show off your Project
+						li: a(href='/opensource') Open Source Projects
+						li: a(href='/chat') Chat Rooms
+						li: a(href='/projects') Project Gallery
 						li: a(href='/meetups') Meetups
+
+				
 	.row.footer-copyright
-		p Copyright &copy; 2015 uHub. Powered by <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a> credit for website template: <a href='http://sydjs.com'>SydJS</a>.
+		p Copyright &copy; 2015 uHub. Powered by <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a>.

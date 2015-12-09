@@ -1,6 +1,7 @@
 extends ../../layouts/default
 
 include ../../mixins/project
+include ../../mixins/paginate
 
 block intro
 	.page-intro: .container
@@ -13,15 +14,17 @@ block intro
 				if user.projects
 				p 
 					a(href='/me/projects') View or edit your projects.
+						data.
 			else
 				a(href='/join').js-auth-trigger Join now
 				| &nbsp;to submit your capstone project.
 block content
 	.page-content: .container
 		.row
-			div(class= data.nanodegrees.length || !data.projects.length ? 'col-md-10' : 'col-md-10 col-md-offset-1')
+			div(class= data.nanodegrees.length || !data.projects.length ? 'col-md-19' : 'col-md-9 col-md-offset-3')
 				if filters.nanodegree && !data.nanodegree
-					h3 Invalid Nanodegree.
+					h3
+					| Invalid Nanodegree.
 				else
 					if data.projects.length
 						.container(style='margin-top:10px;')
@@ -32,14 +35,44 @@ block content
 						if data.nanodegree
 							h3.text-muted No projects in the nanodegree #{data.nanodegree.title}.
 						else
-							h3.text-muted There are no projects yet.	
+							h3.text-muted There are no projects yet.
+			.col-md-3
+				nav.nav-pills.nav-stacked
+				h5.text-muted Sort by
+				p: small
+					if current.sort == '-updatedAt'
+						strong Recently added
+					else
+						a(href=qs_set({ sort: undefined })) Recently Updated
+					span.text-muted &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+					if current.sort == 'ratings'
+						strong Most Popular
+					else
+						a(href=qs_set({ sort: 'ratings' })) Most Popular
+				p: small
+					if current.sort == 'title'
+						strong Title - Ascending
+					else
+						a(href=qs_set({ sort: 'title'})) Title - Asc.
+					span.text-muted &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+					if current.sort == '-title'
+						strong Title - Descending
+					else
+						a(href=qs_set({ sort: '-title'})) Title - Desc.
 			if data.nanodegrees.length
-				.col-md-2
+				.col-md-3
 					if data.nanodegrees.length
 						h5.text-muted Filter by Nanodegree
-						ul.list-unstyled.tags-list
-							li: a(href='/projects', class=!data.nanodegrees ? 'active' : false) All
+						ul.nav.nav-pills.nav-stacked
+							li(class=!data.nanodegree ? 'active' : false, role=!data.nanodegrees ? 'presentation' : false)
+								a(href='/projects', class=data.nanodegrees ? 'active' : false) 
+									| All
+									span.badge.pull-right 5
 							each tag in data.nanodegrees
-								li: a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item=tag.title
-			if data.projects.totalPages > 1
-				+paginate(data.projects)
+								li(class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false, role=data.nanodegree && data.nanodegree.id == tag.id ? false : 'presentation') 
+									a(href='/projects/' + tag.key, class=data.nanodegree && data.nanodegree.id == tag.id ? 'active' : false).list-group-item=tag.title
+										span.badge.pull-right 4
+	
+	.row.paginate.text-center
+		if data.pagination.totalPages > 1
+				+paginate(data.pagination)

@@ -1,11 +1,12 @@
 mixin project(project)
-		.col-xs-10.col-md-5
+		.col-xs-12.col-md-5
 			.panel.panel-default
 				.panel-heading
-					h2.panel-title.lead.text-center=project.title
+					h2.panel-title.lead.text-center
+						a(href='/projects/project/' + project.slug)=project.title
 						p.small.text-center
 							| by&nbsp
-							a(href='/members', rel='author')=project.author.name.full
+							a(href='/members/' + project.author , rel='author')!=project.author.name.full
 				.panel-image
 					if project.featureImage.exists
 						img(src=project._.featureImage.fill(700,300), alt=project.title).img-responsive
@@ -15,15 +16,14 @@ mixin project(project)
 				input.panel-image-toggle(type='checkbox', checked='' id= '#toggle-' + project.slug)
 				.panel-body
 					p=project.briefDescription
-					a.btn.btn-xs.btn-primary.pull-right(type='button' href='/projects/project/' + project.slug) Read More
+					a.btn.btn-xs.btn-primary.pull-right(type='button' href='/projects/project/' + project.slug, itemprop='url') Read More
 							span.glyphicon.glyphicon-chevron-right
 				.panel-footer.text-center
 						a(href='{project.downloadURL}'): span.glyphicon.glyphicon-download.inline
 						a(href="http://www.uHub.io/projects/project/" + project.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
 							span.fa.fa-facebook
 						a(href="https://twitter.com/share", data-via="uHub", data-hashtags="uHub", data-count="button", data-url='http://uhub.io/projects/project/' + project.slug, data-dnt="true").twitter-share-button: span.fa.fa-twitter
-						a(href='')
-							span.fa.fa-hand-o-up
+						button(type='submit', action='upvote-project'): span.fa.fa-hand-o-up
 block js
 	script(src='/js/common/share.js')
 	script(src="https://apis.google.com/js/plusone.js")

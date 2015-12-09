@@ -18,7 +18,7 @@ block content
 					p.project-page__byline Posted
 						if project.author
 							|  by&nbsp;
-							a(href='/members', rel='author')=project.author.name.full
+							a(href='/members', rel='author')!=project.author.name.full
 						if project.publishedDate
 							|  on #{project._.publishedDate.format('MMMM D, YYYY')}
 						if project.nanodegrees && project.nanodegrees.length
@@ -34,13 +34,13 @@ block content
 						span.share-button
 							.g-plusone(data-size="medium")
 						hr
-				if project.featureImage.exists
+				if project.featureImage
 					.project-image.mv-3: img(src=project._.image.fill(720,420)).img-responsive.
 
 				.row
-					div(class= project.buildInformation.exists ? 'col-md-10 col-md-offset-2' : 'col-md-10')
+					div(class= project.buildInformation ? 'col-md-10 col-md-offset-2' : 'col-md-10')
 						!= project.content.full
-					if project.buildInformation.exists
+					if project.buildInformation
 					.col-md-2
 						.panel.panel-info
 							.panel-heading
@@ -48,12 +48,16 @@ block content
 								| Build Information
 						.panel-body: project.buildInformation
 				
-				if project.gallery.exists
+				if project.gallery
 					+project-image-gallery(project)
 
-				if project.appetize.exists
+				if project.appetize
 					+project-embed(project)
-
+				
+				if canEdit
+				.row
+					a(href='/me/project/' + project.slug + '/edit')
+					btn.btn-primary Edit this Project
 					//- Comment
 					.comments
 						h4.mb-1=project.comments.length == 0 ? 'Be the first to reply' : plural(project.comments.length, '* comment', '* comments')

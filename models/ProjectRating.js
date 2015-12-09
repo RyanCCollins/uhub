@@ -7,7 +7,8 @@ var Types = keystone.Field.Types;
  */
 
 var ProjectRating = new keystone.List('ProjectRating', {
-	nocreate: true
+	nocreate: true,
+	track: true
 });
 
 ProjectRating.add({

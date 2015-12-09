@@ -5,13 +5,17 @@ block intro
 	.container-sm
 		.page-intro
 			h1.page-title Meetups
-			p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at 
-				if !user
-					a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
-				else
-					| our next meetup
-				| . Stay in the loop - 
-				a(href='http://twitter.com/uHub', target='_blank') follow us on twitter
+			p.lead Want to get involved?  Meetups are a great way to learn from your peers and collaborate.
+			p.lead Looking to dive right in?  Check out our&nbsp
+				a(href='/opensource') open source projects
+				| &nbspand get involved!
+				p.lead
+					if !user
+						a(href='/join').js-auth-trigger Join&nbsp;us&nbsp;
+					else
+						| RSVP&nbsp
+					| for our next meetup. Stay in the loop - 
+					a(href='http://twitter.com/uHub', target='_blank') follow us on twitter
 
 		if upcomingMeetup
 			+meetup(upcomingMeetup)

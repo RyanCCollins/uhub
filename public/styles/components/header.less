@@ -54,7 +54,7 @@
 .site-branding {
 	display: inline;
 	width: 45px;
-	font-size: 1.75em;
+	font-size: 1.8em;
 	text-decoration: none !important;
 	text-decoration-color: transparent;
 }
@@ -75,6 +75,10 @@ nav {
 
 	> li {
 		display: inline-block;
+
+		.active {
+			background: fade(@nav-primary, 75%) !important;
+		}
 	}
 	> li > a {
 		.transition( all 0.1s ease );
@@ -83,18 +87,18 @@ nav {
 		padding-right: 15px;
 		padding-left: 15px;
 		outline: none;
-		color: mix(@nav-primary, white, 60%);
+		color: mix(@nav-primary, white, 50%);
 		text-transform: uppercase;
 		font-weight: 300;
 		font-size: @font-size-base * 1.3;
 
 		&:hover {
-			color: fade(white, 70%);
+			color: fade(white, 90%);
 			text-decoration: none;
 		}
 		&:active,
 		&:focus {
-			color: mix(white, @nav-primary, 80%);
+			color: mix(white, @nav-primary, 95%);
 			text-decoration: none;
 		}
 	}
@@ -106,6 +110,7 @@ nav {
 		text-transform: none;
 		img {
 			margin-right: 5px;
+			color: mix(white, @nav-primary, 95%) !important;
 		}
 	}
 }

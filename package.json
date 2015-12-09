@@ -23,6 +23,7 @@
     "moment": "^2.10.6",
     "mongoose-plugin-votes": "^1.2.3",
     "newrelic": "^1.24.0",
+    "node-gitter": "^1.2.8",
     "pagination": "^0.4.4",
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",

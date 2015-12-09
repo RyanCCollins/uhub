@@ -5,7 +5,9 @@ var clientConfig = require('../client/config');
 var keystone = require('keystone');
 var middleware = require('./middleware');
 
+
 var importRoutes = keystone.importer(__dirname);
+
 
 // Common Middleware
 keystone.pre('routes', middleware.initErrorHandlers);
@@ -31,7 +33,7 @@ keystone.set('500', function (err, req, res, next) {
 var routes = {
 	api: importRoutes('./api'),
 	views: importRoutes('./views'),
-	auth: importRoutes('./auth'),
+	auth: importRoutes('./auth')
 };
 
 // Bind Routes
@@ -75,7 +77,7 @@ exports = module.exports = function (app) {
 	app.all('/links/link/:link', routes.views.link);
 	app.get('/blog/:category?', routes.views.blog);
 	app.all('/blog/post/:post', routes.views.post);
-	app.get('/projects/:nanodegree', routes.views.projects);
+	app.get('/projects/:nanodegree?', routes.views.projects);
 	app.get('/projects/project/:project', routes.views.project);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
@@ -106,7 +108,8 @@ exports = module.exports = function (app) {
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
-
+	app.all('/chat', routes.views.gitter['main']);
+	//app.all('/chat/:chatroom?', routes.views.gitter);
 	// GraphQL API
 	//app.post('/api/graphql', bodyParser.text({ type: 'application/graphql' }), routes.api.graphql);
 

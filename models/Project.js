@@ -26,7 +26,7 @@ Project.add({
 		briefDescription: { type: String, required: true, initial: true},
 		about: { type: Types.Markdown, wysiwyg: true, toolbarOptions: { hiddenButtons: 'H1,H6,Code' }, height: 250, note: 'Tell us all about your project (in Markdown)!' },
 		nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true },
-		categories: { type: Types.Relationship, ref: 'ProjectCategory', filters:{ group: ':nanodegree'},  initial: true, drilldown: 'nanodegree'}
+		categories: { type: Types.Relationship, ref: 'ProjectCategory', default: 'Capstone', filters:{ group: ':nanodegree'},  initial: true, drilldown: 'nanodegree'}
 }, 'Build Information', {
 	includeBuildInformation: { type: Boolean, default: true},
 	//buildInformation: { type: Types.Relationship, ref 'BuildInformation', toMany: false, dependsOn: deps.buildInfo }
@@ -54,8 +54,7 @@ Project.relationship({ ref: 'ProjectRating', refPath: 'project', path: 'ratings'
  * Virtuals
  * ========
  */
-var votesPlugin = require('mongoose-plugin-votes');
-Project.schema.plugin(votesPlugin);
+
 /**
  * Notifications
  * =============

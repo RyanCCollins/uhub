@@ -1,0 +1,111 @@
+extends ../../layouts/default
+
+block intro
+	.page-intro: .container-fluid
+		h1.page-title=data.category ? data.category.name : 'uhub Gitter Chat Rooms'
+		p.lead
+			| Welcome to the home of uhub's open source projects.
+			if user && user.isAdmin
+				a(href='/me/create/room') Submit a post to the blog.
+			else if user && !user.isAdmin && !user.isChatAdmin
+				a(href='/contact') Contact us if you'd like to be able to volunteer to be a chat administrator.
+			else
+				a(href='/join').js-auth-trigger Join now
+				| &nbsp;and work together to create awesome projects
+
+block content
+	.page-content: .container
+		.row
+			.col-md-12
+				h3.strong.text-center Projects our members are working on now.
+				li Project 1
+				li Project 2
+				li Project 3
+			.row
+			p.strong 
+			p
+			| Join our main chat if you're just getting started, or 
+			.container-fluid
+	.row
+		.col-md-12
+			.jumbotron
+			h2
+				| Hello, world!
+			p
+				| This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+			p
+				a.btn.btn-primary.btn-large(href='#') Learn more
+	.row
+		.col-md-12
+			.page-header
+			h1
+				| LayoutIt! 
+				small Interface Builder for Bootstrap
+			h2
+			| Heading
+			p
+			| Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+			p
+			a.btn(href='#') View details »
+			#tabs-847406.tabbable
+			ul.nav.nav-tabs
+				li.active
+				a(href='#panel-685071', data-toggle='tab') Section 1
+				li
+				a(href='#panel-839575', data-toggle='tab') Section 2
+			.tab-content
+				#panel-685071.tab-pane.active
+				p
+					| I'm in Section 1.
+				#panel-839575.tab-pane
+				p
+					| Howdy, I'm in Section 2.
+			.row
+			.col-md-4
+				.list-group
+					a.list-group-item.active(href='#') Home
+				.list-group-item
+					| List header
+				.list-group-item
+					h4.list-group-item-heading
+					| List group item heading
+					p.list-group-item-text
+					| ...
+				.list-group-item
+					span.badge 14
+					| Help
+				a.list-group-item.active
+					span.badge 14
+					| Help
+			.col-md-4
+				.list-group
+				a.list-group-item.active(href='#') Home
+				.list-group-item
+					| List header
+				.list-group-item
+					h4.list-group-item-heading
+					| List group item heading
+					p.list-group-item-text
+					| ...
+				.list-group-item
+					span.badge 14
+					| Help
+				a.list-group-item.active
+					span.badge 14
+					| Help
+			.col-md-4
+				.list-group
+				a.list-group-item.active(href='#') Home
+				.list-group-item
+					| List header
+				.list-group-item
+					h4.list-group-item-heading
+					| List group item heading
+					p.list-group-item-text
+					| ...
+				.list-group-item
+					span.badge 14
+					| Help
+				a.list-group-item.active
+					span.badge 14
+					| Help
