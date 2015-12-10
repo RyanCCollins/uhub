@@ -13,7 +13,7 @@ if (process.env.NEW_RELIC_APP_NAME && process.env.NEW_RELIC_LICENSE_KEY) {
 var keystone = require('keystone');
 var pkg = require('./package.json');
 var port = process.env.PORT || 8080;
-var IP = process.env.IP;
+var IP = process.env.IP || '192.168.33.10/';
 var secrets = require('./lib/auth/secrets');
 
 keystone.init({
@@ -39,13 +39,13 @@ keystone.init({
 	'session store': 'mongo',
 	'auth': true,
 	'user model': 'User',
-	'cookie secret': process.env.COOKIE_SECRET || 'uHub',
+	'cookie secret': secrets.sessionSecret,
 
-	'mandrill api key': process.env.MANDRILL_KEY,
-	'cloudinary config': process.env.CLOUDINARY_URI || secrets.cloudinary.uri,
+	'mandrill api key': secrets.mandrill.password,
+	'cloudinary config': secrets.cloudinary.uri,
 	
-	'google api key': process.env.GOOGLE_BROWSER_KEY,
-	'google server api key': process.env.GOOGLE_SERVER_KEY,
+	'google api key': secrets.google.clientID,
+	'google server api key': secrets.google.clientSecret,
 
 	'ga property': process.env.GA_PROPERTY,
 	'ga domain': process.env.GA_DOMAIN,
@@ -79,6 +79,7 @@ keystone.set('locals', {
 keystone.set('email locals', {
 	utils: keystone.utils,
 	host: (function() {
+		if (keystone.get('env') === 'development') return IP;
 		if (keystone.get('env') === 'staging') return 'http://uhub-beta.herokuapp.com';
 		if (keystone.get('env') === 'production') return 'http://www.uhub.io';
 		return (keystone.get('host') || IP) + (keystone.get('port') || port);
@@ -100,7 +101,7 @@ keystone.set('nav-profile-dropdown', {
 });
 
 keystone.set('cloudinary config', {
-	'cloudinary config': process.env.CLOUDINARY_URI || secrets.cloudinary.uri,
+	'cloudinary config': secrets.cloudinary.uri,
 		'cloudinary prefix': 'uhub',
 		'cloudinary secure': true
 

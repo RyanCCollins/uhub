@@ -1,5 +1,5 @@
 //- HEADER
-header(id='header', role='banner', class=(section == 'home' ? 'header--home' : 'header--page'))
+header(id='header', role='banner', class=(section == 'home' ? 'header--home' : 'header--page headroom'))
 	nav.navbar(role='navigation'): .container
 		//- Site logo + site nav trigger button (on mobile)
 		.navbar-header
@@ -26,12 +26,12 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 								=user.name.first
 									strong.caret
 							ul.dropdown-menu
-								if user.canPostProjects
+								if user && user.canPostProjects
 								li
 									a(href='/me/create/project') Post your Project
 								li 
-									a(href='/chats/') Chat Rooms
-								if user.isAdmin
+									a(href='/chat/') Chat Rooms
+								if user && user.isAdmin
 								li
 									a(href='/keystone') Admin Area
 								li

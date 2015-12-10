@@ -1,7 +1,7 @@
 extends ../../layouts/default
 
 block content
-	.container-fluid
+	.container
 		.row
 			a(href='/projects').text-muted &larr; Back to the Project Gallery
 			article.full-project
@@ -9,10 +9,11 @@ block content
 					h2 Invalid Project.
 				else
 					header
-						if project.state != 'published' && user.isAdmin
-							.mt-1: .alert.alert-danger This Project has not been published yet. 
-								a(href='/keystone/projects/' + project.id).alert-link Open Keystone
-								|  to publish it.
+						if user && user.isAdmin
+							if project.state != 'published'
+								.mt-1: .alert.alert-danger This Project has not been published yet. 
+									a(href='/keystone/projects/' + project.id).alert-link Open Keystone
+									|  to publish it.
 					
 					h1.project-page__title= project.title
 					p.project-page__byline Posted
@@ -34,12 +35,12 @@ block content
 						span.share-button
 							.g-plusone(data-size="medium")
 						hr
-				if project.featureImage
-					.project-image.mv-3: img(src=project._.image.fill(720,420)).img-responsive.
+				if project.featureImage.exists
+					.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive.
 
 				.row
 					div(class= project.buildInformation ? 'col-md-10 col-md-offset-2' : 'col-md-10')
-						!= project.content.full
+						!= project.about.html
 					if project.buildInformation
 					.col-md-2
 						.panel.panel-info
@@ -48,16 +49,16 @@ block content
 								| Build Information
 						.panel-body: project.buildInformation
 				
-				if project.gallery
+				if project.gallery.exists
 					+project-image-gallery(project)
 
-				if project.appetize
+				if (project.includeAppetizeEmbed == true) && project.appetizeURL.exists
 					+project-embed(project)
 				
-				if canEdit
+				if user && canEdit
 				.row
 					a(href='/me/project/' + project.slug + '/edit')
-					btn.btn-primary Edit this Project
+						btn.btn-primary.btn-lg Edit this Project
 					//- Comment
 					.comments
 						h4.mb-1=project.comments.length == 0 ? 'Be the first to reply' : plural(project.comments.length, '* comment', '* comments')
@@ -83,9 +84,6 @@ block content
 									.mv-1
 										button(type='submit').btn.btn-success Submit
 
-block js
-	script(src='/js/common/share.js')
-	script(src="https://apis.google.com/js/plusone.js")
 block js
 	script(src='/js/common/share.js')
 	script(src="https://apis.google.com/js/plusone.js")

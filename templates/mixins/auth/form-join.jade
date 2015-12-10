@@ -5,7 +5,8 @@
 	Args
 	* modal  - boolean
 	* initial [default "join"] - accepts "signin" | "join" | "password"
-	
+include ../udacity-btn
+
 mixin form-join(args)
 	.auth-box.modal-pane-join(class=args.modal && args.initial != 'join' ? 'hidden' : null)
 		if args.modal
@@ -13,7 +14,11 @@ mixin form-join(args)
 				button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
 				h4.modal-title Join uHub
 		div(class=args.modal ? 'modal-body' : null)
-			include ../../includes/social-signin
+			p.lead.text-center
+				| The best way to get access to all of our great features is to join with your Udacity Account.
+			+udacity-btn("Join with your Udacity Account")
+			p.text-center.text-muted.mt-1
+				| Some areas require a valid Udacity Enrollment
 			p.auth-form-divider: span.auth-form-divider-text or
 			//- p Or use your email, that's okay too:
 			form(method='post', action='/join', autocomplete='off', novalidate).auth-form
@@ -49,7 +54,8 @@ mixin form-join(args)
 						label(for='website').sr-only Website (optional)
 						input(type='website', name='website', placeholder='Website (optional)', value=!args.modal ? form.website : null).form-control.form-control--last
 				button(type='submit').btn.btn-block.btn-primary.btn-submit Join
-		
+			p.auth-form-divider: span.auth-form-divider-text or
+				include ../../includes/social-signin
 			p.text-center.text-muted.mt-3
 				| Already have an account? 
 				a(href=args.modal ? js : '/signin', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'signin' : null) Sign in

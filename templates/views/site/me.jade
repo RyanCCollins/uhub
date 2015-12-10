@@ -44,33 +44,32 @@ block content
 				
 				
 				//- Unconfigured Services
-				
-				if !user.services.github.isConfigured
-					.form-group
-						label.col-sm-2.control-label Github
-						.col-sm-10
-							a(href='/auth/github', title='Connect your Github account').btn.btn-github
-								span.entypo-social.entypo-github
-								|  Connect your Github account
 				if !user.services.udacity.isConfigured
 					.form-group
 						label.col-sm-2.control-label Udacity
 						.col-sm-10
-							a(href='/auth/udacity', title='Connect your Udacity accont').btn.btn-udacity
+							a(href='/auth/udacity', title='Connect your Udacity accont').btn.btn-block.btn-udacity
 								span.entypo-social
 								| Connect your Udacity account
+				if !user.services.github.isConfigured
+					.form-group
+						label.col-sm-2.control-label Github
+						.col-sm-10
+							a(href='/auth/github', title='Connect your Github account').btn.btn-block.btn-github
+								span.entypo-social.entypo-github
+								|  Connect your Github account
 				if !user.services.google.isConfigured
 					.form-group
 						label.col-sm-2.control-label Google
 						.col-sm-10
-							a(href='/auth/google', title='Connect your Google account').btn.btn-google
+							a(href='/auth/google', title='Connect your Google account').btn.btn-block.btn-google
 								span.entypo-social.entypo-google-circles
 								|  Connect your Google account
 				if !user.services.twitter.isConfigured
 					.form-group
 						label.col-sm-2.control-label Twitter
 						.col-sm-10
-							a(href='/auth/twitter', title='Connect your Twitter account').btn.btn-twitter
+							a(href='/auth/twitter', title='Connect your Twitter account').btn.btn-block.btn-twitter
 								span.entypo-social.entypo-twitter
 								|  Connect your Twitter account
 				// if !user.services.facebook.isConfigured
@@ -86,6 +85,13 @@ block content
 				
 				if user.services.github.isConfigured || user.services.twitter.isConfigured || user.services.google.isConfigured || user.services.facebook.isConfigured || user.services.udacity.isConfigured
 					hr.line-dashed
+				if user.services.udacity.isConfigured
+					.form-group
+						label.col-sm-2.control-label Udacity
+						.col-sm-10.text-muted.faux-label
+							span.entypo-social.entypo-facebook
+							|  Your account is connected. 
+							a(href='?disconnect=udacity', title='Revoke authorization of your Udacity account') Disconnect
 				if user.services.github.isConfigured
 					.form-group
 						label.col-sm-2.control-label Github
@@ -100,13 +106,6 @@ block content
 							span.entypo-social.entypo-google-circles
 							|  Your account is connected. 
 							a(href='?disconnect=google', title='Revoke authorization of your Google account') Disconnect
-				if user.services.udacity.isConfigured
-					.form-group
-						label.col-sm-2.control-label Udacity
-						.col-sm-10.text-muted.faux-label
-							span.entypo-social.entypo-facebook
-							|  Your account is connected. 
-							a(href='?disconnect=udacity', title='Revoke authorization of your Udacity account') Disconnect
 				if user.services.twitter.isConfigured
 					.form-group
 						label.col-sm-2.control-label Twitter

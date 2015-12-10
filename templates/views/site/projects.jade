@@ -8,7 +8,7 @@ block intro
 		h1.page-title=data.nanodegree ? data.nanodegree.title : 'Project Gallery'
 		p.lead
 			| Welcome to the project gallery!  Here are some recent projects posted to uHub by our members.&nbsp;
-			if user.canPostProjects
+			if user && user.canPostProjects
 				p 
 					a(href='/me/create/project') Submit your capstone project.
 				if user.projects
