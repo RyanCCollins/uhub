@@ -35,7 +35,7 @@ RSVPStore.extend({
 		request
 			.post('/api/me/meetup')
 			.send({ data: {
-				meetup: SydJS.currentMeetupId,
+				meetup: uhub.currentMeetupId,
 				attending: attending
 			}})
 			.end(function(err, res) {
@@ -57,7 +57,7 @@ RSVPStore.extend({
 		cancelRefresh();
 		// request the update from the API
 		request
-			.get('/api/meetup/' + SydJS.currentMeetupId)
+			.get('/api/meetup/' + uhub.currentMeetupId)
 			.end(function(err, res) {
 				if (err) {
 					console.log('Error with the AJAX request: ', err)

@@ -25,6 +25,9 @@ html
 		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
 		link(rel='stylesheet', href='https://i.icomoon.io/public/temp/b6e4d6f9e5/UntitledProject/style.css')
 
+		if section == 'projects'
+			script(src='https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js')
+
 		if user && user.canAccessKeystone
 			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
 
@@ -70,11 +73,12 @@ html
 	script.
 		var uHub = {};
 		uHub.meetup = !{JSON.stringify(meetup)};
-	script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js')
+	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
+	script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
 	script(src='/js/lib/bootstrap/modal.js')
-	script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
+	
 
 	//- Headroom
 	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")

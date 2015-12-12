@@ -7,7 +7,7 @@ var Meetup = keystone.list('Meetup'),
 	RSVP = keystone.list('RSVP');
 
 exports = module.exports = function(req, res) {
-	
+	req.session.message = 'Hello World';
 	var view = new keystone.View(req, res),
 		locals = res.locals;
 	

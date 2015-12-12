@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "Slidebars": "~0.10.3",
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "masonry": "jquery-masonry#~3.3.2"
   }
 }

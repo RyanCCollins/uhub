@@ -32,17 +32,17 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 								li 
 									a(href='/chat/') Chat Rooms
 								if user && user.isAdmin
-								li
-									a(href='/keystone') Admin Area
-								li
-									a(href='/me/create/post') Post to the Blog
-								li
-									a(href='/signout') Signout
-										span.visible-xs 
-										span.entypo.entypo-large.entypo-logout.hidden-xs
+									li
+										a(href='/keystone') Admin Area
+									li
+										a(href='/me/create/post') Post to the Blog
 								li.divider
 								li
 									a(href='/me') My Account
+								li
+									a(href='/signout') Signout
+										span.visible-xs 
+										span.entypo.entypo-large.entypo-logout.hidden-xs.pull-right
 					else
 						li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
 						li: a(href='/join', data-from=page.path).js-auth-trigger Join

@@ -13,7 +13,7 @@ if (process.env.NEW_RELIC_APP_NAME && process.env.NEW_RELIC_LICENSE_KEY) {
 var keystone = require('keystone');
 var pkg = require('./package.json');
 var port = process.env.PORT || 8080;
-var IP = process.env.IP || '192.168.33.10/';
+var IP = process.env.IP || '192.168.33.10';
 var secrets = require('./lib/auth/secrets');
 
 keystone.init({
@@ -107,4 +107,34 @@ keystone.set('cloudinary config', {
 
 });
 
-keystone.start();
+var socketio = require('socket.io');
+keystone.start({
+    onHttpServerCreated: function(){
+        keystone.set('io', socketio.listen(keystone.httpServer));
+    },
+    onStart: function(){
+        var io = keystone.get('io');
+        var session = keystone.get('express session');
+
+        // Share session between express and socketio
+        io.use(function(socket, next){
+            session(socket.handshake, {}, next);
+        });
+
+        // Socketio connection
+        io.on('connect', function(socket){
+            console.log('--- User connected');
+
+            // Set session variables in route controller
+            // which is going to load the client side socketio
+            // in this case, ./routes/index.js
+            console.log(socket.handshake.session);
+            socket.emit('msg', socket.handshake.session.message);
+
+
+            socket.on('disconnect', function(){
+                console.log('--- User disconnected');
+            });
+        });
+    }
+});

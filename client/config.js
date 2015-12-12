@@ -3,5 +3,6 @@ exports.packages = [
 	'react',
 	'react/addons',
 	'react-router',
-	'superagent'
+	'superagent',
+	'babel-register'
 ];

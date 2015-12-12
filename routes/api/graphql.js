@@ -39,7 +39,7 @@
 
 // var meetupType = new GraphQL.GraphQLObjectType({
 // 	name: 'Meetup',
-// 	fields: () => ({
+// 	fields: {
 // 		id: {
 // 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 // 			description: 'The id of the meetup.',
@@ -75,12 +75,12 @@
 // 		totalRSVPs: {
 // 			type: GraphQL.GraphQLInt,
 // 		},
-// 	}),
+// 	},
 // });
 
 // var talkType = new GraphQL.GraphQLObjectType({
 // 	name: 'Talk',
-// 	fields: () => ({
+// 	fields: {
 // 		id: {
 // 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 // 			description: 'The id of the talk.',
@@ -107,7 +107,7 @@
 // 		link: {
 // 			type: GraphQL.GraphQLString,
 // 		},
-// 	}),
+// 	},
 // });
 
 // function getTalk (id) {
@@ -117,7 +117,7 @@
 // var schema = new GraphQL.GraphQLSchema({
 // 	query: new GraphQL.GraphQLObjectType({
 // 		name: 'RootQueryType',
-// 		fields: () => ({
+// 		fields: {
 // 			meetup: {
 // 				type: meetupType,
 // 				args: {
@@ -139,7 +139,7 @@
 // 				resolve: (root, args) => getTalk(args.id),
 // 			},
 // 		}),
-// 	}),
+// 	},
 // });
 
 // module.exports = function (req, res) {

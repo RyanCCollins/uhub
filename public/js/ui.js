@@ -53,17 +53,17 @@ $(function() {
     toggleNavbarMethod();
     
     // Call toggleNavbarMethod(); when window is resized.
-    $(window).smartresize(function(){
-        toggleNavbarMethod();
-    });
+    // $(window).smartresize(function(){
+    //     toggleNavbarMethod();
+    // });
     
     
     /*-------------------------------------------------------------------*/
     /*  7. Prevent bootstrap dropdown closing when clicked.
     /*-------------------------------------------------------------------*/
-    $('.dropdown-menu').click(function(e){
-        e.stopPropagation();
-    });
+    // $('.dropdown-menu').click(function(e){
+    //     e.stopPropagation();
+    // });
     
     
     /*-------------------------------------------------------------------*/
@@ -77,6 +77,15 @@ $(function() {
         }
     }, false);
 	
+
+	// Generic confirms
+	// ------------------------------
+	
+	$('.js-confirm').click(function(e) {
+		if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
+			return e.preventDefault();
+	});
+
 	// UI Reveal
 	// ------------------------------
 	
@@ -242,4 +251,10 @@ $(function() {
 		}
 	}
 
+	var elem = document.querySelector('.grid');
+	var msnry = new Masonry( elem, {
+  		// options
+  		itemSelector: '.grid-item',
+  		columnWidth: 400
+	});
 });

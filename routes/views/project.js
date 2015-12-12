@@ -15,6 +15,8 @@ exports = module.exports = function(req, res) {
 	
 	locals.data = {
 		project: [],
+		featureImage: [],
+		imageGallery: [],
 		canEdit: false
 	}
 

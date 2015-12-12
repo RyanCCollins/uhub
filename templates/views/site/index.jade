@@ -94,11 +94,11 @@ block js
 
 	if meetup
 		script.
-			SydJS.currentMeetupId = !{JSON.stringify(meetup.id)};
+			uhub.currentMeetupId = !{JSON.stringify(meetup.id)};
 	if user
 		script.
-			SydJS.user = !{JSON.stringify(user)};
-
+			uhub.user = !{JSON.stringify(user)};
+	
 	//- REACT SCRIPTS
 	script(src='/js/packages.js')
 	script(src='/js/home.js')
