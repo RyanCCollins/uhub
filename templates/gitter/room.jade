@@ -1,0 +1,51 @@
+extends ../../layouts/default
+
+block content
+	.main.col-md-6.col-md-offset-3
+		#errors.alert.alert-danger
+		#login-screen
+			p.lead Chat application - using node.js and socket.io
+			p Please enter your name below and click 'Join' or hit the 'Enter' key.
+			form#nameForm.form-inline
+				.form-group
+					input#name.form-control.input-lg(type='text', placeholder='Your name')
+				input#join.btn.btn-primary.btn-lg(type='submit', name='join', value='Join')
+	#main-chat-screen.row
+		.col-md-3
+			ul#rooms.list-group
+			ul#people.list-group
+		.col-md-6
+			#conversation
+				ul#msgs.list-unstyled
+			form#chatForm.form-inline
+				.form-group
+					input#msg.form-control.input-lg(type='text', placeholder='Your message')
+				input#send.btn.btn-success.btn-lg(type='submit', name='send', value='Send')
+				input#start_button.btn.btn-info.btn-lg(type='button', name='start_button', value='Record', onclick='startButton(event)')
+				.btn-group
+					button.btn.btn-lg.btn-info.dropdown-toggle(type='button', data-toggle='dropdown')
+						| Actions 
+						span.caret
+					ul.dropdown-menu(role='menu')
+						li
+							a(href='#', name='createRoom', data-toggle='modal', data-target='#roomModal') Create room
+						li
+							a#leave(href='#', name='leave') Leave current room
+						// <li><a href="#" name="disconnect" id="disconnect">Disconnect from chat</a></li>
+		.col-md-2
+			ul#updates.list-unstyled
+	// Modal start
+	#roomModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='createRoomLabel', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+					h4#createRoomLabel.modal-title Create room
+				.modal-body
+					| You can create a chat room here. Names have to be unique.
+					form#createRoomForm.form-inline
+						input#createRoomName.form-control.input-lg(type='text', placeholder='Room name')
+				.modal-footer
+					button.btn.btn-lg.btn-default(type='button', data-dismiss='modal') Close
+					button#createRoomBtn.btn.btn-success.btn-lg(data-dismiss='modal') Create room
+	// Modal end

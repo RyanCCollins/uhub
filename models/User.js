@@ -2,6 +2,7 @@ var async = require('async');
 var crypto = require('crypto');
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var udacity = require('udacity-api');
 
 /**
  * Users Model
@@ -208,7 +209,9 @@ User.schema.virtual('twitterUsername').get(function() {
 User.schema.virtual('githubUsername').get(function() {
 	return (this.services.github && this.services.github.isConfigured) ? this.services.github.username : '';
 });
-
+User.schema.virtual('googleUsername').get(function() {
+	return (this.services.google && this.services.google.isConfigured) ? this.services.google.username : '';
+});
 
 /**
  * Methods

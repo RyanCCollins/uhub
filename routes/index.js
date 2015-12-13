@@ -113,7 +113,8 @@ exports = module.exports = function (app) {
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
-	app.all('/chat', routes.views.gitter['main']);
+	app.get('/chat', routes.views.gitter['room']);
+	app.get('/chat/:room', routes.views.gitter['room']);
 
 	// API
 	app.all('/api*', keystone.middleware.api);

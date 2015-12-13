@@ -107,34 +107,41 @@ keystone.set('cloudinary config', {
 
 });
 
-var socketio = require('socket.io');
-keystone.start({
-    onHttpServerCreated: function(){
-        keystone.set('io', socketio.listen(keystone.httpServer));
-    },
-    onStart: function(){
-        var io = keystone.get('io');
-        var session = keystone.get('express session');
 
-        // Share session between express and socketio
-        io.use(function(socket, next){
-            session(socket.handshake, {}, next);
-        });
+keystone.set('jwtTokenSecret', secrets.tokenSecret); // put in something hard to guess
 
-        // Socketio connection
-        io.on('connect', function(socket){
-            console.log('--- User connected');
+// Start Keystone to connect to your database and initialise the web server
+keystone.start(
+{
+	onHttpServerCreated: function() 
+	{
+// Instantiate an express.io app object, tack it on to keystone
+		keystone.socketioapp = require('express.io')();
+// The 'server' property is used internally by express.io as the express http or https object, so copy it from keystone
+		keystone.socketioapp.server=keystone.httpServer;
+// Since the http(s) object has already been created by keystone just before this callback, we call express.io's socket.io instantiator rather than creating another server with: keystone.socketioapp.http().io(); This allows socket.io to use the same port as keystone.
+		keystone.socketioapp.io();
+		
+		var socketio = keystone.socketioapp.io;
+		keystone.set('socketio', socketio);
 
-            // Set session variables in route controller
-            // which is going to load the client side socketio
-            // in this case, ./routes/index.js
-            console.log(socket.handshake.session);
-            socket.emit('msg', socket.handshake.session.message);
+		var port = keystone.get('port');
+// 'listen' will share the port with keystone
+		keystone.socketioapp.server.listen(port?port:3000);
+		
+		socketio.set('heartbeat timeout', 20);
+		socketio.set('heartbeat interval', 10);
+		socketio.enable('heartbeats');
+		
+		socketio.on('connection', function(socket) {
 
+			socket.on('connected', function(token) {
+				user = checkToken(token);
+	  			if (typeof user == 'object') {
+	  				socket.user = user;
+				}
 
-            socket.on('disconnect', function(){
-                console.log('--- User disconnected');
-            });
-        });
-    }
+			});
+		});
+	}
 });

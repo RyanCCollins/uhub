@@ -43,7 +43,9 @@
     "store-prototype": "^1.1.1",
     "superagent": "^1.4.0",
     "udacity-api": "^0.3.2",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "express.io": "^1.1.X",
+    "jwt-simple": "^0.2.X"
   },
   "engines": {
     "node": "0.10.x",
