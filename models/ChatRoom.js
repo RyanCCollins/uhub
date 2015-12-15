@@ -10,7 +10,8 @@ var Types = keystone.Field.Types;
 
 var ChatRoom = new keystone.List('ChatRoom', {
 	track: true,
-	autokey: { path: 'key', from: 'name', unique: true }
+	autokey: { path: 'key', from: 'name', unique: true },
+	map: { name: 'name'}
 });
 
 

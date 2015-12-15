@@ -26,11 +26,24 @@ block content
 			.col-md-12
 				.page-header
 				h1
-					| Active Teams
-					small 
-		if data.rooms.length && data.roomTableHeaders.length && data.roomTable
-		.row
-			+table(data.roomTableHeaders, data.roomTable, "table-hover")
+					| Active Rooms
+					small
+		if data.rooms.length
+			div
+				table
+					thead
+						tr: th Chat Rooms
+						- var i = 0;
+							tbody
+								each room, i in data.rooms 
+									tr(class=(i % 2 == 0) ? 'odd' : 'even') 
+										td
+											a(href='/chats/' + room.id)= room.name
+												#{room.name}
+									tr(class=(i % 2 == 0) ? 'odd' : 'even') 
+										td
+											a(href='/chats/' + room.id)= room.name
+												#{room.name}
 block js
 	script(src='/js/gitter/sidecar.js')
 	script(src='https://sidecar.gitter.im/dist/sidecar.v1.js', async='', defer='')

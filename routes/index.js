@@ -76,7 +76,7 @@ exports = module.exports = function (app) {
 	app.get('/members/mentors', routes.views.mentors);
 	app.get('/member/:member', routes.views.member);
 	app.get('/member/:member/projects', routes.views.project);
-	app.get('/organisations', routes.views.organisations);
+	app.get('/organizations', routes.views.organizations);
 	app.get('/links', routes.views.links);
 	app.get('/links/:tag?', routes.views.links);
 	app.all('/links/link/:link', routes.views.link);
@@ -87,9 +87,9 @@ exports = module.exports = function (app) {
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 	app.get('/privacy', routes.views.privacy);
-	app.get('/open-source', routes.views.open-source['main']);
-	//app.all('/open-source/:project', routes.views.open-source['project']);
-	//app.all('/open-source/:team', routes.views.open-source['team']);
+	app.get('/opensource', routes.views.opensource['main']);
+	//app.all('/opensource/:project', routes.views.open-source['project']);
+	//app.all('/opensource/:team', routes.views.open-source['team']);
 
 	app.all('/projects', routes.views.projects);
 

@@ -1,0 +1,40 @@
+mixin team(team)
+	.org.row(id=team.id)
+		.col-sm-3.col-md-2.text-center
+			if team.avatar.exists
+				if team.website
+					a(href=team.website, target='_blank').org__logo
+						img(src=team._.avatar.limit(120,120), alt=team.name)
+				else
+					span.org__logo
+						img(src=team._.avatar.limit(120,120), alt=team.name)
+		.col-sm-9.col-md-8
+			h2.org__heading
+				if team.website
+					a(href=team.website, target='_blank')= team.title
+				else
+					= team.title
+			if team.location.serialised
+				h4.org__location
+					span.org__location-icon.entypo.entypo-location
+					span.org__location-address=org.location.serialised
+			if team.description.html
+				!= team.description.html
+			if team.website
+				h5: a(href=team.website, target='_blank')= team.website.replace('http://', '')
+		if team.leaders && team.leaders.length
+			.col-sm-9.col-sm-offset-3.col-md-2.col-md-offset-0
+				hr.line-dashed.visible-xs.visible-sm
+				h6.text-muted.mt-0 Leaders of #{team.name}
+				ul.list-unstyled
+					each leader in team.leaders
+						li
+							a(href=leader.url)!=leader.name.full
+		if team.members && team.members.length
+			.col-sm-9.col-sm-offset-3.col-md-2.col-md-offset-0
+				hr.line-dashed.visible-xs.visible-sm
+				h6.text-muted.mt-0 Members in #{team.name}
+				ul.list-unstyled
+					each member in team.members
+						li
+							a(href=member.url)!=member.name.full

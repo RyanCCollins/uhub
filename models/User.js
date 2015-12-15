@@ -31,8 +31,8 @@ User.add({
 	resetPasswordKey: { type: String, hidden: true }
 }, 'Profile', {
 	isPublic: { type: Boolean, default: true },
-	isOrganiser: Boolean,
-	organisation: { type: Types.Relationship, ref: 'Organisation' },
+	isOrganizer: Boolean,
+	organization: { type: Types.Relationship, ref: 'Organization' },
 	photo: { type: Types.CloudinaryImage },
 	website: { type: Types.Url, note: 'Full website URL, including http://'},
 	bio: { type: Types.Markdown },

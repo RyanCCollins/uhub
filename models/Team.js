@@ -15,8 +15,11 @@ var Team = new keystone.List('Team', {
 Team.add({
 	title: { type: String, required: true, initial: true, unique: true, note: 'Create a cool team name.  Pick something unique to you!'},
 	avatar: { type: Types.CloudinaryImage, autoCleanup : true, select: true, publicID: 'slug'},
+	website: Types.Url,
+	description: { type: Types.Markdown },
 	group: {type: Types.Relationship, ref: 'Nanodegree', many: false, required: true, initial: true},
-	leaders: { type: Types.Relationship, ref: 'User', many: true, required: true, initial: true }
+	leaders: { type: Types.Relationship, ref: 'User', many: true, required: true, initial: true },
+	location: Types.Location
 });
 
 Team.relationship({ ref: 'User', refPath: 'members', path: 'members'});

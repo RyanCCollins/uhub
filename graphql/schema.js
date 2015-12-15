@@ -8,7 +8,7 @@ var Meetup = keystone.list('Meetup');
 var Talk = keystone.list('Talk');
 var User = keystone.list('User');
 var RSVP = keystone.list('RSVP');
-var Organisation = keystone.list('Organisation');
+var Organization = keystone.list('Organization');
 
 function getMeetup(id) {
 	if (id === 'next') {
@@ -213,8 +213,8 @@ var rsvpType = new GraphQL.GraphQLObjectType({
 	}
 });
 
-var organisationType = new GraphQL.GraphQLObjectType({
-	name: 'Organisation',
+var organizationType = new GraphQL.GraphQLObjectType({
+	name: 'Organization',
 	fields: {
 		name: { type: GraphQL.GraphQLString },
 		logo: { type: keystoneTypes.cloudinaryImage },
@@ -225,7 +225,7 @@ var organisationType = new GraphQL.GraphQLObjectType({
 		members: {
 			type: new GraphQL.GraphQLList(userType),
 			resolve: function resolve(source) {
-				return User.model.find().where('organisation', source.id).exec();
+				return User.model.find().where('organization', source.id).exec();
 			}
 		}
 	}
@@ -258,16 +258,16 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 				return Talk.model.findById(args.id).exec();
 			}
 		},
-		organisation: {
-			type: organisationType,
+		organization: {
+			type: organizationType,
 			args: {
 				id: {
-					description: 'id of the organisation',
+					description: 'id of the organization',
 					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID)
 				}
 			},
 			resolve: function resolve(_, args) {
-				return Organisation.model.findById(args.id).exec();
+				return Organization.model.findById(args.id).exec();
 			}
 		},
 		user: {
