@@ -1,5 +1,8 @@
 extends ../../layouts/default
 
+block flash-messages
+	//- !!! intentionally left blank
+
 block content
 	.container
 		.row
@@ -36,11 +39,10 @@ block content
 							.g-plusone(data-size="medium")
 						hr
 				if project.featureImage.exists
-					.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive.
-
+					.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive
 				.row
 					div(class= project.buildInformation ? 'col-md-10 col-md-offset-2' : 'col-md-10')
-						!= project.about.html
+						p!=project.about.html
 					if project.buildInformation
 					.col-md-2
 						.panel.panel-info

@@ -1,4 +1,5 @@
 var keystone = require('keystone'),
+	async = require('async'),
 	_ = require('underscore');
 
 var User = keystone.list('User');
@@ -13,72 +14,86 @@ exports = module.exports = function(req, res) {
 	locals.section = 'opensource';
 	locals.page.title = 'Open Source Teams and Projects';
 
+	locals.filters = {
+		group: req.params.nanodegree
+	}
 
-	// Load Users
-	// view.on('init', function(next) {
+	locals.current = {
+		sort: '-updateAt'
+	};
 
-	// 	User.model.find()
-	// 	.sort('name.first')
-	// 	.where('isPublic', true)
-	// 	.where('teams').gt(0)
-	// 	.exec(function(err, users) {
-	// 		if (err) return res.err(err);
-	// 		locals.users = users;
-	// 		next();
-	// 	});
-		
-	// });
+	locals.data = {
+		teams: {},
+		nanodegrees: {}
+	}
 
-	// Load Teams
-
+	// Load all categories
 	view.on('init', function(next) {
-		Team.model.find()
-		.sort('-createdAt')
-		.populate('members')
-		.exec(function(err, teams) {
-			if (err) return res.err(err);
-			locals.teams = teams;
-			next();
+		
+		keystone.list('Nanodegree').model.find().sort('title').exec(function(err, results) {
+			
+			if (err || !results.length) {
+				return next(err);
+			}
+			
+			locals.data.nanodegrees = results;
+			
+			// Load the counts for each category
+			async.each(locals.data.nanodegrees, function(nanodegree, next) {
+				
+				keystone.list('Team').model.count().where('group').in([nanodegree.id]).exec(function(err, count) {
+					nanodegree.Count = count;
+
+					next(err);
+				});
+				
+			}, function(err) {
+				next(err);
+			});
+			
 		});
+		
 	});
 
-	// //Find team leaders
-	// view.on('init', function(next) {
-	// 	Team.model.find()
-	// 	.sort('name.first')
-	// 	.where('isPublic', true)
-	// 	.where('teams').gt(0)
-	// 	.exec(function(err, users) {
-	// 		if (err) res.err(err);
-	// 		locals.users = users;
-	// 		next();
-	// 	});
-	// });
+	// Load the current nanodegree filter
+	view.on('init', function(next) {
+		
+		if (req.params.nanodegree) {
+			keystone.list('Nanodegree').model.findOne({ key: locals.filters.nanodegree }).exec(function(err, result) {
+				locals.data.nanodegree = result;
+				next(err);
+			});
+		} else {
+			next();
+		}
+		
+	});
+	
+	// Load the teams
+	view.on('render', function(next) {
 
-	// // Pluck IDs for filtering Community
+		var q = keystone.list('Team').paginate({
+                page: req.query.page || 1,
+                perPage: 8,
+                maxPages: 10
+            })
+            .sort('-createdAt')
+            .populate('members leaders group');
 
-	// view.on('init', function(next) {
-	// 	locals.leaderIds = _.pluck(locals.teams, 'id');
-	// 	locals.speakerIDs = _.pluck(locals.users, 'id');
-	// 	next();
-	// });
+        if (locals.data.nanodegree) {
+            q.where('group').in([locals.data.nanodegree]);
+        }
 
+        var sort = locals.current.sort;
 
-	// // Load Community
+        q.sort(sort);
 
-	// view.on('init', function(next) {
-	// 	User.model.find()
-	// 	.sort('-lastRSVP')
-	// 	.where('isPublic', true)
-	// 	.where('_id').nin(locals.organiserIDs)
-	// 	.where('_id').nin(locals.speakerIDs)
-	// 	.exec(function(err, community) {
-	// 		if (err) res.err(err);
-	// 		locals.community = community;
-	// 		next();
-	// 	});
-	// });
-
+        q.exec(function(err, results) {
+            locals.data.pagination = results;
+            locals.data.teams = locals.data.pagination.results;
+            next(err);
+        });
+    });
 
 	view.render('site/opensource');
 }
