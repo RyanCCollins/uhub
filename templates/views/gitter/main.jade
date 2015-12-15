@@ -1,5 +1,7 @@
 extends ../../layouts/default
 
+include ../../jade-bootstrap/components/tables
+
 block intro
 	.container
 		.page-intro
@@ -24,65 +26,11 @@ block content
 			.col-md-12
 				.page-header
 				h1
-					| Open Source Projects
-					small These are some of our most popular open source projects.
-				h2
-				| Heading
-				p
-				| Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-				p
-				a.btn(href='#') View details »
-
-
+					| Active Teams
+					small 
+		if data.rooms.length && data.roomTableHeaders.length && data.roomTable
 		.row
-			.col-md-4
-				.list-group
-					a.list-group-item.active(href='#') iOS Projects
-				.list-group-item
-					| List header
-				.list-group-item
-					h4.list-group-item-heading
-					| List group item heading
-					p.list-group-item-text
-					| ...
-				.list-group-item
-					span.badge 14
-					| Help
-				a.list-group-item.active
-					span.badge 14
-					| Help
-			.col-md-4
-				.list-group
-				a.list-group-item.active(href='#') Home
-				.list-group-item
-					| List header
-				.list-group-item
-					h4.list-group-item-heading
-					| List group item heading
-					p.list-group-item-text
-					| ...
-				.list-group-item
-					span.badge 14
-					| Help
-				a.list-group-item.active
-					span.badge 14
-					| Help
-			.col-md-4
-				.list-group
-				a.list-group-item.active(href='#') Home
-				.list-group-item
-					| List header
-				.list-group-item
-					h4.list-group-item-heading
-					| List group item heading
-					p.list-group-item-text
-					| ...
-				.list-group-item
-					span.badge 14
-					| Help
-				a.list-group-item.active
-					span.badge 14
-					| Help
+			+table(data.roomTableHeaders, data.roomTable, "table-hover")
 block js
 	script(src='/js/gitter/sidecar.js')
 	script(src='https://sidecar.gitter.im/dist/sidecar.v1.js', async='', defer='')

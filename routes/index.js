@@ -87,6 +87,9 @@ exports = module.exports = function (app) {
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 	app.get('/privacy', routes.views.privacy);
+	app.get('/open-source', routes.views.open-source['main']);
+	//app.all('/open-source/:project', routes.views.open-source['project']);
+	//app.all('/open-source/:team', routes.views.open-source['team']);
 
 	app.all('/projects', routes.views.projects);
 
@@ -113,8 +116,8 @@ exports = module.exports = function (app) {
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
-	app.get('/chat', routes.views.gitter['room']);
-	app.get('/chat/:room', routes.views.gitter['room']);
+	app.all('/chat', routes.views.gitter['main']);
+	app.all('/chat/:room', routes.views.gitter['room']);
 
 	// API
 	app.all('/api*', keystone.middleware.api);

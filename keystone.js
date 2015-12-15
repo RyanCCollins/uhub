@@ -87,9 +87,10 @@ keystone.set('email locals', {
 });
 
 keystone.set('nav', {
+	'members': ['users', 'organisations', 'teams'],
+	'projects': ['projects', 'project-categories', 'project-comments', 'project-ratings'],
+	'chatrooms': ['chat-rooms'],
 	'meetups': ['meetups', 'talks', 'rsvps'],
-	'projects': ['projects', 'project-categories'],
-	'members': ['users', 'organisations'],
 	'posts': ['posts', 'post-categories', 'post-comments'],
 	'links': ['links', 'link-tags', 'link-comments']
 });

@@ -34,15 +34,12 @@ User.add({
 	isOrganiser: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
 	photo: { type: Types.CloudinaryImage },
-	github: { type: String, width: 'short' },
-	twitter: { type: String, width: 'short' },
-	udacity: { type: String, width: 'short' },
 	website: { type: Types.Url, note: 'Full website URL, including http://'},
 	bio: { type: Types.Markdown },
 	gravatar: { type: String, noedit: true },
-	enrollments: { type: Types.Relationship, ref: 'Nanodegree', many: true},
-	enrollmentStatus: {type: Types.Select, options: ['Student', 'Graduate'], required: true, initial: true, default: 'Student'}
-
+	enrollments: { type: Types.Relationship, ref: 'Nanodegree', many: true, filters: {  }},
+	enrollmentStatus: {type: Types.Select, options: ['Student', 'Graduate'], required: true, initial: true, default: 'Student'},
+	teams: { type: Types.Relationship, ref: 'Team', many: true, filters: {group: ':enrollments' }}
 }, 'Notifications', {
 	notifications: {
 		posts: { type: Boolean },
@@ -171,6 +168,7 @@ User.schema.pre('save', function(next) {
 	=============
 */
 
+User.relationship({ ref: 'Team', refPath: 'author', path: 'projects' })
 User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
 User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
 User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });

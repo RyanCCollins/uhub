@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
 	_ = require('underscore'),
+	async = require('async'),
 	moment = require('moment');
 
 // var Meetup = keystone.list('Meetup'),
@@ -12,67 +13,98 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'chat';
 	locals.page.title = 'Chat - uHub';
-	locals.chat = {
-		name : 'Main'
-	} 
+
+	locals.filters = {
+		room : req.params.room,
+		team : req.params.team,
+		sort : req.params.sort
+	};
+
+	locals.data = {
+		rooms: {},
+		teams: {},
+		roomTableHeaders: [],
+		roomTable: []
+	}
 	
-	// 	// Load all categories
-	// view.on('init', function(next) {
+		// Load all teams
+	view.on('init', function(next) {
 		
-	// 	keystone.list('ChatRoom').model.find().sort('name').exec(function(err, results) {
+		keystone.list('Team').model.find().sort('name').exec(function(err, results) {
 			
-	// 		if (err || !results.length) {
-	// 			return next(err);
-	// 		}
+			if (err || !results.length) {
+				return next(err);
+			}
 			
-	// 		locals.data.categories = results;
+			locals.data.teams = results;
 			
-	// 		// Load the counts for each category
-	// 		async.each(locals.data.categories, function(category, next) {
+		// 	// Load the counts for each category
+		// 	async.each(locals.data.categories, function(category, next) {
 				
-	// 			keystone.list('Post').model.count().where('category').in([category.id]).exec(function(err, count) {
-	// 				category.postCount = count;
-	// 				next(err);
-	// 			});
+		// 		keystone.list('Post').model.count().where('category').in([category.id]).exec(function(err, count) {
+		// 			category.postCount = count;
+		// 			next(err);
+		// 		});
 				
-	// 		}, function(err) {
-	// 			next(err);
-	// 		});
+		// 	}, function(err) {
+		// 		next(err);
+		// 	});
 			
-	// 	});
+		 });
 		
-	// });
+	});
+
+
+
+	// Load the selected filter
+	view.on('init', function(next) {
+		
+		if (req.params.room) {
+			keystone.list('ChatRoom').model.findOne({ key: locals.filters.room }).exec(function(err, result) {
+				locals.data.room = result;
+				next(err);
+			});
+		} else {
+			next();
+		}
+		
+	});
 	
-	// // Load the current category filter
-	// view.on('init', function(next) {
-		
-	// 	if (req.params.category) {
-	// 		keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
-	// 			locals.data.category = result;
-	// 			next(err);
-	// 		});
-	// 	} else {
-	// 		next();
-	// 	}
-		
-	// });
-	
-	// // Load the posts
-	// view.on('init', function(next) {
-		
-	// 	var q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author categories');
-		
-	// 	if (locals.data.category) {
-	// 		q.where('categories').in([locals.data.category]);
-	// 	}
-		
-	// 	q.exec(function(err, results) {
-	// 		locals.data.posts = results;
-	// 		next(err);
-	// 	});
-		
-	// });
-	
+	view.on('init', function(next) {
+
+	var q = keystone.list('ChatRoom').paginate({
+            page: req.query.page || 1,
+            perPage: 10,
+            maxPages: 10
+        })
+		.where('isPublic', true)
+        .sort('-lastActive')
+        .populate('team users');
+
+    if (locals.current.team) {
+        q.where('team').in([locals.data.team]);
+    }
+
+
+    var sort = locals.current.sort;
+
+    q.sort(sort);
+
+    q.exec(function(err, results) {
+        locals.data.pagination = results;
+        locals.data.rooms = locals.data.pagination.results;
+
+        for (room in locals.data.rooms) {
+        	var pub = room.isPublic ? "Yes" : "No"
+        	var q = [room.name, room.topic, room.leader, room.users.count, pub];
+        	locals.data.roomTable = q;
+        }
+
+        local.data.roomTableHeaders = ["Name", "Topic", "Leader", "Users", "Public"];
+        next(err);
+    });
+});
+
 	view.render('gitter/main');
 	
 }

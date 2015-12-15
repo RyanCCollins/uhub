@@ -20,13 +20,13 @@ var deps = {
 }
 
 Project.add({
-		title: { type: String, required: true },
-		author: { type: Types.Relationship, ref: 'User', index: true, initial: true },
-		state: { type: Types.Select, options: 'draft, published, archived', default: 'published', index: true },
-		briefDescription: { type: String, required: true, initial: true},
-		about: { type: Types.Markdown, wysiwyg: true, toolbarOptions: { hiddenButtons: 'H1,H6,Code' }, height: 250, note: 'Tell us all about your project (in Markdown)!' },
-		nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true },
-		categories: { type: Types.Relationship, ref: 'ProjectCategory', default: 'Capstone', filters:{ group: ':nanodegree'},  initial: true, drilldown: 'nanodegree'}
+	title: { type: String, required: true },
+	author: { type: Types.Relationship, ref: 'User', index: true, initial: true, filters: { enrollments:':nanodegree'}},
+	state: { type: Types.Select, options: 'draft, published, archived', default: 'published', index: true },
+	briefDescription: { type: String, required: true, initial: true},
+	about: { type: Types.Markdown, wysiwyg: true, toolbarOptions: { hiddenButtons: 'H1,H6,Code' }, height: 250, note: 'Tell us all about your project (in Markdown)!' },
+	nanodegree: { type: Types.Relationship, ref: 'Nanodegree', toMany: false, required: true, initial: true, filters: { author: ':author' }},
+	categories: { type: Types.Relationship, ref: 'ProjectCategory', default: 'Capstone',  initial: true, filters: { nanodegree:':nanodegree' }}
 }, 'Build Information', {
 	includeBuildInformation: { type: Boolean, default: true},
 	//buildInformation: { type: Types.Relationship, ref 'BuildInformation', toMany: false, dependsOn: deps.buildInfo }
