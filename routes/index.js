@@ -37,20 +37,21 @@ var routes = {
 	auth: importRoutes('./auth')
 };
 
+
+
 // Bind Routes
 exports = module.exports = function (app) {
-	app.use('/js', browserify('./client/scripts', {
-		external: clientConfig.packages,
-		transform: ['babelify'],
-	}));
 
+	
 	// Browserification
 	app.get('/js/packages.js', browserify(clientConfig.packages, {
 		cache: true,
 		precompile: true,
 	}));
-
-	
+	app.use('/js', browserify('./client/scripts', {
+		external: clientConfig.packages,
+		transform: ['babelify'],
+	}));
 
 	// GraphQL
 	app.use('/api/graphql', graphqlHTTP({ schema: graphQLSchema, graphiql: true }));
