@@ -112,37 +112,4 @@ keystone.set('cloudinary config', {
 keystone.set('jwtTokenSecret', secrets.tokenSecret); // put in something hard to guess
 
 // Start Keystone to connect to your database and initialise the web server
-keystone.start(
-{
-	onHttpServerCreated: function() 
-	{
-// Instantiate an express.io app object, tack it on to keystone
-		keystone.socketioapp = require('express.io')();
-// The 'server' property is used internally by express.io as the express http or https object, so copy it from keystone
-		keystone.socketioapp.server=keystone.httpServer;
-// Since the http(s) object has already been created by keystone just before this callback, we call express.io's socket.io instantiator rather than creating another server with: keystone.socketioapp.http().io(); This allows socket.io to use the same port as keystone.
-		keystone.socketioapp.io();
-		
-		var socketio = keystone.socketioapp.io;
-		keystone.set('socketio', socketio);
-
-		var port = keystone.get('port');
-// 'listen' will share the port with keystone
-		keystone.socketioapp.server.listen(port?port:3000);
-		
-		socketio.set('heartbeat timeout', 20);
-		socketio.set('heartbeat interval', 10);
-		socketio.enable('heartbeats');
-		
-		socketio.on('connection', function(socket) {
-
-			socket.on('connected', function(token) {
-				user = checkToken(token);
-	  			if (typeof user == 'object') {
-	  				socket.user = user;
-				}
-
-			});
-		});
-	}
-});
+keystone.start();

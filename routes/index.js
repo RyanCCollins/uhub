@@ -6,6 +6,7 @@ var keystone = require('keystone');
 var middleware = require('./middleware');
 var graphqlHTTP = require('express-graphql');
 var graphQLSchema = require('../graphql/schema');
+var vhost = require('vhost');
 
 var importRoutes = keystone.importer(__dirname);
 
