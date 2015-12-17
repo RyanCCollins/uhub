@@ -37,3 +37,5 @@ ehthumbs.db
 Thumbs.db
 .env
 lib/auth/secrets.js
+
+node_modules/

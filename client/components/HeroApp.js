@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var request = require('superagent');
 var RSVPStore = require('../stores/RSVPStore');
 
@@ -6,7 +6,7 @@ var HeroApp = React.createClass({
 
 	getInitialState: function() {
 		return {
-			user: uhub.user,
+			user: SydJS.user,
 			isReady: RSVPStore.isLoaded(),
 			meetup: RSVPStore.getMeetup(),
 			rsvp: RSVPStore.getRSVP()

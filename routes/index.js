@@ -6,6 +6,7 @@ var keystone = require('keystone');
 var middleware = require('./middleware');
 var graphqlHTTP = require('express-graphql');
 var graphQLSchema = require('../graphql/schema');
+var vhost = require('vhost');
 
 var importRoutes = keystone.importer(__dirname);
 
@@ -117,8 +118,7 @@ exports = module.exports = function (app) {
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
-	app.all('/chat', routes.views.gitter['main']);
-	app.all('/chat/:room', routes.views.gitter['room']);
+	app.all('/chat', routes.views.chat['main']);
 
 	// API
 	app.all('/api*', keystone.middleware.api);

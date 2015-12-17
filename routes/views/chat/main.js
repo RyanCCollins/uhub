@@ -64,7 +64,7 @@ exports = module.exports = function(req, res) {
 	// 	 });
 
 	// Render the view
-	view.render('gitter/main');
+	view.render('chat/main');
 	
 }
 
