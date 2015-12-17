@@ -1,80 +1,75 @@
 var keystone = require('keystone'),
+	async = require('async'),
 	_ = require('underscore'),
-	moment = require('moment');
-var io = keystone.socketio;
+	Room = keystone.list('ChatRoom'),
+	Team = keystone.list('Team'),
+	User = keystone.list('User');
 
-// var Meetup = keystone.list('Meetup'),
-// 	RSVP = keystone.list('RSVP');
 
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
 		locals = res.locals;
 	
+	// Init locals
 	locals.section = 'chat';
-	locals.page.title = 'Chat - uHub';
-	locals.chat = {
-		name : 'Main'
-	} 
+	locals.page.title = 'Open Source Projects and Teams';
+
+	locals.data = {
+		rooms: {},
+		teams: {}
+	};
 	
-		// Load all categories
+	// Load the rooms
 	view.on('init', function(next) {
 		
-		keystone.list('PostCategory').model.find().sort('name').exec(function(err, results) {
-			
-			if (err || !results.length) {
+		var q = Room.model.find()
+		.populate('users leader team')
+		.limit(10)
+		.exec(function(err, rooms) {
+			if (err || !rooms.length) {
 				return next(err);
 			}
-			
-			locals.data.categories = results;
-			
-			// Load the counts for each category
-			async.each(locals.data.categories, function(category, next) {
-				
-				keystone.list('Post').model.count().where('category').in([category.id]).exec(function(err, count) {
-					category.postCount = count;
-					next(err);
-				});
-				
-			}, function(err) {
-				next(err);
-			});
-			
-		});
-		
-	});
-	
-	// Load the current category filter
-	view.on('init', function(next) {
-		
-		if (req.params.category) {
-			keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
-				locals.data.category = result;
-				next(err);
-			});
-		} else {
-			next();
-		}
-		
-	});
-	
-	// Load the posts
-	view.on('init', function(next) {
-		
-		var q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author categories');
-		
-		if (locals.data.category) {
-			q.where('categories').in([locals.data.category]);
-		}
-		
-		q.exec(function(err, results) {
-			locals.data.posts = results;
+
+        	console.log(rooms);
+			locals.data.rooms = rooms;
 			next(err);
 		});
 		
 	});
-	
-	view.render('chat/main');
+
+	// 		// Load all teams
+	// view.on('init', function(next) {
+		
+	// 	keystone.list('Team').model.find().sort('name').exec(function(err, results) {
+			
+	// 		if (err || !results.length) {
+	// 			return next(err);
+	// 		}
+			
+	// 		locals.data.teams = results;
+			
+	// 	// 	// Load the counts for each category
+	// 	// 	async.each(locals.data.categories, function(category, next) {
+				
+	// 	// 		keystone.list('Post').model.count().where('category').in([category.id]).exec(function(err, count) {
+	// 	// 			category.postCount = count;
+	// 	// 			next(err);
+	// 	// 		});
+				
+	// 	// 	}, function(err) {
+	// 	// 		next(err);
+	// 	// 	});
+			
+	// 	 });
+
+	// Render the view
+	view.render('gitter/main');
 	
 }
+
+
+
+
+
 
