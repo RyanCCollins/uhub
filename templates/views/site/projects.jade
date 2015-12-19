@@ -3,6 +3,8 @@ extends ../../layouts/default
 include ../../mixins/project
 include ../../mixins/paginate
 
+include ../../jade-bootstrap/components/dropdowns
+
 block intro
 	.page-intro: .container
 		h1.page-title=data.nanodegree ? data.nanodegree.title : 'Project Gallery'
@@ -20,8 +22,33 @@ block intro
 				| &nbsp;to submit your capstone project.
 block content
 	.page-content: .container-fluid
+		//- if data.nanodegrees.length || !data.projects.length
+		//- 	.row
+		//- 		.col-sm-12
+		//- 			.col-sm-4
+		//- 				button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown")
+		//- 					= Filter by Nanodegree
+		//- 					| &nbsp;
+		//- 					span.caret
+		//- 				ul.dropdown-menu(role="menu",aria-labelledby="dropdownMenu1")
+		//- 					- var args = Array.prototype.slice.call(arguments);
+		//- 					for item in args[1]
+		//- 						li(role="presentation")
+		//- 							a(role="menuitem",tabindex="-1",href="#{item.url}")= item.text
+		//- 				+dropdown("Filter by Nanodegree",[
+		//- 					{text:"Bootstrap",url:"http://www.getbootstrap.com"},
+		//- 					{text:"JADE",url:"http://www.jade-lang.com"},
+		//- 					{text:"NodeJS",url:"http://www.nodejs.org"}
+		//- 				])
+		//- 			.col-sm-4
+		//- 				+dropdown("Sort by...",[
+		//- 					{text:"Bootstrap",url:"http://www.getbootstrap.com"},
+		//- 					{text:"JADE",url:"http://www.jade-lang.com"},
+		//- 					{text:"NodeJS",url:"http://www.nodejs.org"}
+		//- 				])
+		//- 			.col-sm-4
 		.row
-			div(class= data.nanodegrees.length || !data.projects.length ? 'col-md-10' : 'col-md-10 col-md-offset-2')
+			div.col-md-12.col-sm-6
 				if filters.nanodegree && !data.nanodegree
 					h3
 					| Invalid Nanodegree.

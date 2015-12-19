@@ -6,16 +6,15 @@ block intro
 	.container
 		.page-intro
 			h1.page-title
-				| Open Source Chats
+				| Teams Chatting on Uhub Now
 			p.lead
 				| Welcome to the home of uhub's open source projects.
 				if user && user.isAdmin
-					p
-						a(href='/me/create/room') Join the conversation
-					p
-						a(href='/me/create/room') Create a Room
+					a(href='https://chat.uhub.io') Hop on over&nbsp
+					| to the chatroom and get involved.
 				else if user && !user.isAdmin
-					a(href='/contact') Contact us if you'd like to be able to volunteer to be a chat administrator.
+					a(href='/contact') Contact us
+						| if you'd like to be able to volunteer to be a chat administrator or moderator.
 				else
 					a(href='/join').js-auth-trigger Join now
 					| &nbsp;and work together to create awesome projects
@@ -25,25 +24,35 @@ block content
 		.row
 			.col-md-12
 				.page-header
-				h1
-					| Active Rooms
-					small
+					#react-hero-button
 		if data.rooms.length
-			div
-				table
-					thead
-						tr: th Chat Rooms
-						- var i = 0;
-							tbody
-								each room, i in data.rooms 
-									tr(class=(i % 2 == 0) ? 'odd' : 'even') 
-										td
-											a(href='/chats/' + room.id)= room.name
-												#{room.name}
-									tr(class=(i % 2 == 0) ? 'odd' : 'even') 
-										td
-											a(href='/chats/' + room.id)= room.name
-												#{room.name}
+			.tile: table.table.table-striped
+				col(width='25%')
+				thead.panel-heading
+					tr
+						th Name
+						th Topic
+						th Leaders
+						th.hidden-xs Open
+						th.hidden-xs Active
+				tbody
+					//- each room in data.rooms
+					//- 	#room-table
+					//- 	tr
+					//- 		td
+					//- 			if room.team.exists
+					//- 				a(href=room.url).media
+					//- 					.pull-left: img(src=room.avatar.exists ? room.avatar.thumbnail(80,80) : '/images/avatar.png', width=40, height=40, alt=room.team.name).img-responsive.img-circle
+					//- 					.media-body= room.name
+					//- 			else
+					//- 				.media-body= room.name	
+					//- 		td= room.topic
+					//- 		if room.team.leaders.exists
+					//- 			each leader in room.team.leaders
+					//- 				td= a(href=leaders.url).media
+					//- 			else
+					//- 				td= N/A
+					//- 		td.hidden-xs!= room.isPublic ? '<span class="entypo entypo-check"></span>' : null
+					//- 		td.hidden-xs!= room.isActive ? '<span class="entypo entypo-check"></span>' : null
+		#react-chat-table
 block js
-	script(src='/js/gitter/sidecar.js')
-	script(src='https://sidecar.gitter.im/dist/sidecar.v1.js', async='', defer='')

@@ -14,7 +14,7 @@ block content
 				if 'string' == typeof err
 					!= utils.textToHTML(err)
 				else
-					!= htmlStringify(err)
+					!= utils.htmlStringify(err)
 
 		p If you're seeing this error often please 
 			a(href='https://github.com/techrapport/uhub/issues', target='_blank') let us know.

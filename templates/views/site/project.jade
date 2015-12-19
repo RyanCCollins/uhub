@@ -38,8 +38,8 @@ block content
 						span.share-button
 							.g-plusone(data-size="medium")
 						hr
-				if project.featureImage.exists
-					.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive
+				//- if project.featureImage.exists
+				//- 	.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive
 				.row
 					div(class= project.buildInformation ? 'col-md-10 col-md-offset-2' : 'col-md-10')
 						p!=project.about.html

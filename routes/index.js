@@ -6,7 +6,8 @@ var keystone = require('keystone');
 var middleware = require('./middleware');
 var graphqlHTTP = require('express-graphql');
 var graphQLSchema = require('../graphql/schema');
-var vhost = require('vhost');
+var subdomain = require('subdomain');
+var IP = process.env.IP || '192.168.33.10';
 
 var importRoutes = keystone.importer(__dirname);
 
@@ -44,18 +45,26 @@ var routes = {
 exports = module.exports = function (app) {
 
 	
+	
+	app.use('/js', browserify('./client/scripts', {
+		external: clientConfig.packages,
+		transform: [
+			babelify.configure({
+				presets: ['es2015', 'react']
+			}),
+		],
+	}));
+
 	// Browserification
 	app.get('/js/packages.js', browserify(clientConfig.packages, {
 		cache: true,
 		precompile: true,
 	}));
-	app.use('/js', browserify('./client/scripts', {
-		external: clientConfig.packages,
-		transform: ['babelify'],
-	}));
 
 	// GraphQL
 	app.use('/api/graphql', graphqlHTTP({ schema: graphQLSchema, graphiql: true }));
+
+	app.use(subdomain({ base: IP, removeWWW: true}));
 
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV !== 'production') {
@@ -69,6 +78,10 @@ exports = module.exports = function (app) {
 			next();
 		});
 	}
+
+	app.get('/chat/room', function(request, response) {
+		response.end('chat.IP: "/"')
+	})
 
 	// Website
 	app.get('/', routes.views.index);
@@ -123,6 +136,7 @@ exports = module.exports = function (app) {
 	// API
 	app.all('/api*', keystone.middleware.api);
 	app.all('/api/me/meetup', routes.api.me.meetup);
+	app.all('/api/chats', routes.api.chats);
 	//app.all('/api/me/project', routes.api.me.projects);
 	app.all('/api/app/')
 	app.all('/api/stats', routes.api.stats);

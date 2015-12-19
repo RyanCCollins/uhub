@@ -24,7 +24,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		
 		var q = Room.model.find()
-		.populate('users leader team')
+		.populate('users leaders team')
 		.limit(10)
 		.exec(function(err, rooms) {
 			if (err || !rooms.length) {

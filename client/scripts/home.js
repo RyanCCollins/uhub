@@ -15,3 +15,11 @@ var heroAppTarget = document.getElementById('react-hero-button');
 if (heroAppTarget) {
 	React.render(<HeroApp />, heroAppTarget);
 }
+
+/* Table for Chat Page */
+
+var ChatTable = require('../components/ChatTable.js')
+var chatTableTarget = document.getElementById('react-chat-table');
+if (chatTableTarget) {
+	React.render(<ChatTable />, chatTableTarget);
+}

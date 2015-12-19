@@ -17,8 +17,8 @@ var ChatRoom = new keystone.List('ChatRoom', {
 
 ChatRoom.add({
 	name: { type: String, required: true, index: true },
-	isPublic: { type: Boolean, required: true, initial: true, default: false},
-	team: { type: Types.Relationship, ref: 'Team', many: false, initial: true, dependsOn: { isPublic: false}},
+	isPublic: { type: Boolean, initial: true, default: false},
+	team: { type: Types.Relationship, ref: 'Team', many: false, initial: true},
 	topic: { type: String },
 	repoURL: { type: Types.Url, required: true, initial: true},
 	users: { type: Types.Relationship, ref: 'User', many: true, filters: {teams:':team'}},
