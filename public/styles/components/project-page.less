@@ -1,8 +1,10 @@
-// Blog
+
+
+// Project Page
 // ------------------------------
 
 @project-image-width: 170px;
-.project-page {
+.project-post {
 	.clearfix();
 	margin-bottom: 40px;
 	text-align: center;
@@ -33,10 +35,10 @@
 @media (min-width: @screen-sm-min) {
 	.project-page__image {
 		float: left;
-		width: @project-image-width;
+		width: @post-image-width;
 	}
 	.project-page__content {
-		margin-left: @project-image-width + 20;
+		margin-left: @post-image-width + 20;
 		&.link {
 			margin-left: 0;
 		}
@@ -90,9 +92,64 @@
 	}
 }
 
-// Full project
+// Full post
 .full-project {
 	.project-page__title {
 		margin: 0 0 0.25em;
 	}
 }
+
+// share buttons
+.share-buttons {
+	margin: 20px 0;
+	height: 30px;
+	.clearfix();
+	position: relative;
+	
+	@media (min-width: @screen-sm-min) {
+		&.right {
+			float: right;
+		
+			.share-button {
+				margin-right: 0;
+				margin-left: 10px;
+			}
+		}
+	}
+	.share-button {
+		display: block;
+		position: absolute;
+		width: 80px;
+	}
+
+	.share-button:nth-child(1) {
+		left: 0;
+		top: -2px;
+	}
+
+	.share-button:nth-child(2) {
+		left: 100px;
+		top: 0;
+	}
+	.share-button:nth-child(3) {
+		left: 200px;
+		top: 0;
+	}
+
+}
+
+
+// Comment
+.comments {
+	margin-top: 3em;
+	padding-top: 2em;
+	border-top: 1px solid @gray-light;
+	.comment {
+		h6 {
+			span {
+				font-weight: 300;
+			}
+		}
+	}
+}
+

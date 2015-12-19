@@ -16,6 +16,7 @@ var Project = new keystone.List('Project', {
 
 var deps = {
 	appetize: { 'includeAppetizeEmbed' : true },
+	appetizeUpload: { 'appetize.upload' : true},
 	buildInfo: { 'includeBuildInformation': true },
 }
 
@@ -37,10 +38,14 @@ Project.add({
 }, 'Links', {
 	downloadURL: { type: Types.Url, required: false, note: 'This is in addition to the github page.  Link to the best place to download the project.'},
 	githubURL: { type: Types.Url, required: false, note: 'This will help people download and run your project.  It will also help automate the submission of your project.' },
-	openSource: { type: Boolean, default: true, required: true, note: 'Note: If your project is open source, visitors of the site will be able to visit the project page, fork and star it.'}
+	openSource: { type: Boolean, default: true, note: 'Note: If your project is open source, visitors of the site will be able to visit the project page, fork and star it.'}
 }, 'Embeds', {
-	includeAppetizeEmbed: { type: Boolean, default: false},
-	appetizeURL: { type: String, required: false, note: 'If your project is an iOS or Android app, you can upload it to Appetize to provide an emulation on the site.', dependsOn: deps.appetize }
+	includeAppetizeEmbed: { type: Boolean, default: false, note: 'Appetize is an interactive way to show off your mobile apps.  For instructions, go to https://appetize.io/docs.'},
+	appetize: {
+		apiKey: { type: String, required: false, note: '', dependsOn: deps.appetizeURLappetizeUpload },
+		device: { type: Types.Select, options: 'iPhone, Android', default: 'iPhone'},
+		color: { type: Types.Select, options: 'Black, White', default: 'Black'}
+	}
 });
 
 
@@ -55,6 +60,11 @@ Project.relationship({ ref: 'ProjectRating', refPath: 'project', path: 'ratings'
  * ========
  */
 
+Project.schema.virtual('appetizeUrl').get(function() {
+	var urlString = 'https://appetize.io/embed/'+ appetize.apiKey +'?device=iPhone6&scale=100&autoplay=false&orientation=portrait&deviceColor=black'
+	return urlString;
+});
+	
 /**
  * Notifications
  * =============
@@ -92,7 +102,6 @@ Project.schema.methods.notifyAdmins = function(callback) {
 		}
 	}, sendEmail);
 };
-
 
 /**
  * Registration

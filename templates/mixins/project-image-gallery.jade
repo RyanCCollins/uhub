@@ -1,0 +1,4 @@
+mixin project-image-gallery(image)
+		#links
+			a(href=image.url, title='image.title', data-gallery='image.title')
+				img(src=image.fill(200,200) alt=image.title)

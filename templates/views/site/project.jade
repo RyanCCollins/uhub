@@ -1,5 +1,9 @@
 extends ../../layouts/default
 
+include ../../mixins/project-image-gallery
+include ../../mixins/project-embed
+
+
 block flash-messages
 	//- !!! intentionally left blank
 
@@ -17,7 +21,7 @@ block content
 								.mt-1: .alert.alert-danger This Project has not been published yet. 
 									a(href='/keystone/projects/' + project.id).alert-link Open Keystone
 									|  to publish it.
-					
+					p!=project
 					h1.project-page__title= project.title
 					p.project-page__byline Posted
 						if project.author
@@ -38,24 +42,56 @@ block content
 						span.share-button
 							.g-plusone(data-size="medium")
 						hr
-				//- if project.featureImage.exists
-				//- 	.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive
+				if project.featureImage.exists
+					div(class= project.featureImage ? 'col-md-10 col-md-offset-2' : 'col-md-10')
+						.project-image.mv-3: img(src=project._.featureImage.fill(720,420)).img-responsive
 				.row
 					div(class= project.buildInformation ? 'col-md-10 col-md-offset-2' : 'col-md-10')
-						p!=project.about.html
+						.row
+							p!=project.about.html
 					if project.buildInformation
 					.col-md-2
 						.panel.panel-info
 							.panel-heading
 								h3.panel-title
 								| Build Information
-						.panel-body: project.buildInformation
+						.panel-body!=project.buildInformation
 				
-				if project.gallery.exists
-					+project-image-gallery(project)
 
-				if (project.includeAppetizeEmbed == true) && project.appetizeURL.exists
-					+project-embed(project)
+					.row
+					#blueimp-gallery.blueimp-gallery
+						// The container for the modal slides
+						.slides
+						// Controls for the borderless lightbox
+						h3.title project.title
+						a.prev ‹
+						a.next ›
+						a.close ×
+						a.play-pause
+						ol.indicator
+							// The modal dialog, which will be used to wrap the lightbox content
+							.modal.fade
+								.modal-dialog
+									.modal-content
+										.modal-header
+											button.close(type='button', aria-hidden='true') ×
+											h4.modal-title
+										.modal-body.next
+										.modal-footer
+											button.btn.btn-default.pull-left.prev(type='button')
+											i.glyphicon.glyphicon-chevron-left
+											|                         Previous
+											button.btn.btn-primary.next(type='button')
+											| Next
+											i.glyphicon.glyphicon-chevron-right
+						each image in project.gallery
+								+project-image-gallery(image)
+				.row
+					if (project.includeAppetizeEmbed == true)
+						- var projectEmbed = project;
+						p!=projectEmbed.appetizeURL
+						p!=project.appetizeURL
+						+project-embed(projectEmbed)
 				
 				if user && canEdit
 				.row
@@ -89,3 +125,15 @@ block content
 block js
 	script(src='/js/common/share.js')
 	script(src="https://apis.google.com/js/plusone.js")
+	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+	script(src='//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js')
+	script(src='/js/lib/bootstrap-image-gallery.min.js')
+	script.
+		document.getElementById('links').onclick = function (event) {
+		event = event || window.event;
+		var target = event.target || event.srcElement,
+		link = target.src ? target.parentNode : target,
+		options = {index: link, event: event},
+		links = this.getElementsByTagName('a');
+		blueimp.Gallery(links, options);
+		};

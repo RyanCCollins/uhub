@@ -1,5 +1,9 @@
 mixin project-embed(project)
 	.row
 		.col-md-6
-			project.embed.description
+			p
+				| My Awesome iOS Project
+			p!=project
 		.col-md-6
+			- var app = project.appetizeURL;
+			iframe(src='', width='378px', height='800px', frameborder='0', scrolling='no')

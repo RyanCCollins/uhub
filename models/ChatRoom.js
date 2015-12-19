@@ -27,7 +27,7 @@ ChatRoom.add({
 });
 
 ChatRoom.schema.virtual('url').get(function() {
-	return '/chats/' + this.key;
+	return '/channel/' + this.key;
 });
 
 ChatRoom.defaultColumns = 'name, group, topic';
