@@ -8,6 +8,7 @@ var graphqlHTTP = require('express-graphql');
 var graphQLSchema = require('../graphql/schema');
 var subdomain = require('subdomain');
 var IP = process.env.IP || '192.168.33.10';
+var REST = require('restful-keystone')(keystone);
 
 var importRoutes = keystone.importer(__dirname);
 
@@ -44,7 +45,15 @@ var routes = {
 // Bind Routes
 exports = module.exports = function (app) {
 
-	
+	REST.expose({
+		ChatRoom: true,
+		Link: true,
+		Organization: true,
+		Post: true,
+		Team: true
+	}).before({
+
+	}).start();
 	
 	app.use('/js', browserify('./client/scripts', {
 		external: clientConfig.packages,
@@ -102,7 +111,7 @@ exports = module.exports = function (app) {
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 	app.get('/privacy', routes.views.privacy);
-	app.get('/opensource', routes.views.opensource['main']);
+	app.get('/teams', routes.views.teams);
 	//app.all('/opensource/:project', routes.views.open-source['project']);
 	//app.all('/opensource/:team', routes.views.open-source['team']);
 

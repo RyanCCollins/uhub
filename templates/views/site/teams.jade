@@ -1,0 +1,60 @@
+extends ../../layouts/default
+
+include ../../mixins/teamspotlight
+
+
+block flash-messages
+	//- !!! intentionally left blank
+
+block intro
+	.page-intro: .container
+		h1.page-title Teams
+		p.lead We are the best and brightest.  We will create the next big thing.
+		if !user || user && !user.teams.exists
+			.btn.btn-primary-btn-lg
+block content
+	.container
+		+flash-messages(messages)
+		.section.highlight: .container
+		.row.about-organisers
+			if data.teams.length
+				each teamToSpotlight in teams
+					.col-sm-3
+						+spotlight(teamToSpotlight)
+
+			//- CODE
+			.section: .container-sm
+				h2 Want to involved?
+				p.lead At the moment, we are only offering beta signups for our teams. 
+				if user
+					form(method='project', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal.create-form.profile-form
+						input(type='hidden', name='action', value='contact')
+							.form-group
+								label Upload Project 
+								input(type='file' name='file_upload')
+								
+							
+							.form-group
+								label Project Category
+								input(type='radio-inline' name='category')
+							
+							//- Content
+							.form-group
+								label Share a bit about your project (in markdown)
+								textarea(name='about', id='project-about' class='wysiwyg').input.input-faded
+							
+							
+							//- Submit
+							.form-group
+								button(type='submit', data-loading-text="Changing...").btn.btn-lg.btn-primary.btn-block Upload project
+		//- if data.teams.length
+		//- .section
+		//- 	.row
+		//- 		each team in data.teams
+		//- 			+team(team)
+block js
+	script(src='/js/lib/bootstrap/transition.js')
+	script(src='/js/lib/bootstrap/tooltip.js')
+	script(src="/js/lib/masonry/masonry.pkgd.min.js")
+	script(src="/js/lib/masonry/imagesloaded.pkgd.min.js")
+	script(src="/js/views/members.js")

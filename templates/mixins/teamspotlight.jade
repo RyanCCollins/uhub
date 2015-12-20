@@ -1,0 +1,8 @@
+mixin spotlight(team)
+	.organiser
+		.organiser__header
+			.img-wrapper
+				img(src=team.image, alt='uHub team - ' + team.name, width=40, height=40).img-circle
+			h4.organiser__name=team.name
+			p.organiser__twitter: a(href='/teams/team/' + team.url) About
+		p.mv-0=team.title

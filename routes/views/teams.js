@@ -11,7 +11,7 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
 		locals = res.locals;
 	
-	locals.section = 'opensource';
+	locals.section = 'teams';
 	locals.page.title = 'Open Source Teams and Projects';
 
 	locals.filters = {
@@ -55,6 +55,34 @@ exports = module.exports = function(req, res) {
 		
 	});
 
+	// 	// Load all categories
+	// view.on('init', function(next) {
+		
+	// 	keystone.list('Team').model.find().sort('title').exec(function(err, results) {
+			
+	// 		if (err || !results.length) {
+	// 			return next(err);
+	// 		}
+			
+	// 		locals.data.nanodegrees = results;
+			
+	// 		// Load the counts for each category
+	// 		async.each(locals.data.nanodegrees, function(nanodegree, next) {
+				
+	// 			keystone.list('Team').model.count().where('group').in([nanodegree.id]).exec(function(err, count) {
+	// 				nanodegree.Count = count;
+
+	// 				next(err);
+	// 			});
+				
+	// 		}, function(err) {
+	// 			next(err);
+	// 		});
+			
+	// 	});
+		
+	// });
+
 	// Load the current nanodegree filter
 	view.on('init', function(next) {
 		
@@ -95,5 +123,5 @@ exports = module.exports = function(req, res) {
         });
     });
 
-	view.render('site/opensource');
+	view.render('site/teams');
 }

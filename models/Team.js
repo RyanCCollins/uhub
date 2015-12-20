@@ -19,7 +19,8 @@ Team.add({
 	description: { type: Types.Markdown },
 	group: {type: Types.Relationship, ref: 'Nanodegree', many: false, required: true, initial: true},
 	leaders: { type: Types.Relationship, ref: 'User', many: true, required: true, initial: true },
-	location: Types.Location
+	location: Types.Location,
+	spotlight: {type: Types.Boolean, default: false}
 });
 
 Team.relationship({ ref: 'User', refPath: 'members', path: 'members'});
