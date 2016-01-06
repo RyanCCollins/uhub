@@ -26,27 +26,12 @@ block content
 			.section: .container-sm
 				h2 Want to involved?
 				p.lead At the moment, we are only offering beta signups for our teams. 
-				if user
-					form(method='project', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal.create-form.profile-form
-						input(type='hidden', name='action', value='contact')
-							.form-group
-								label Upload Project 
-								input(type='file' name='file_upload')
-								
-							
-							.form-group
-								label Project Category
-								input(type='radio-inline' name='category')
-							
-							//- Content
-							.form-group
-								label Share a bit about your project (in markdown)
-								textarea(name='about', id='project-about' class='wysiwyg').input.input-faded
-							
-							
-							//- Submit
-							.form-group
-								button(type='submit', data-loading-text="Changing...").btn.btn-lg.btn-primary.btn-block Upload project
+				if user && user.teams.count == 0
+					a(href='/form/join-team').btn.btn-primary Join a Team
+						+auth-forms({ modal: true, initial: 'join' })
+				else if !user
+					a(href='/join').btn.btn-primary
+
 		//- if data.teams.length
 		//- .section
 		//- 	.row
