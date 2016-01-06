@@ -1,0 +1,78 @@
+mixin team-signup-form(args, nanodegrees)
+  .auth-box.modal-pane-join(class=args.modal && args.initial != 'join' ? 'hidden' : null)
+      if args.modal
+        .modal-header
+          button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title So you want to be a part of a team?
+  div(class=args.modal ? 'modal-body' : null)
+    form.form-horizontal
+      fieldset
+        // Form Name
+        legend Join a Team
+        // Text input
+        .form-group
+          label.col-md-4.control-label(for='email') Email
+          .col-md-4
+            input#email.form-control.input-md(name='email', type='text', placeholder= args.email ? args.email : 'email', required='true')
+        // Textarea
+        .form-group
+          label.col-md-4.control-label(for='about') About
+          .col-md-4
+            textarea#about.form-control(name='about')
+              | Tell us a bit about yourself and why you want to join us.  This will help us to set you up with the right team.
+        // Multiple Checkboxes (inline)
+        .form-group
+          label.col-md-4.control-label(for='daysavailable') What days are you available?
+          .col-md-4
+            label.checkbox-inline(for='daysavailable-0')
+              input#daysavailable-0(type='checkbox', name='daysavailable', value='M')
+              |       M
+            label.checkbox-inline(for='daysavailable-1')
+              input#daysavailable-1(type='checkbox', name='daysavailable', value='T')
+              |       T
+            label.checkbox-inline(for='daysavailable-2')
+              input#daysavailable-2(type='checkbox', name='daysavailable', value='W')
+              |       W
+            label.checkbox-inline(for='daysavailable-3')
+              input#daysavailable-3(type='checkbox', name='daysavailable', value='Th')
+              |       Tr
+            label.checkbox-inline(for='daysavailable-4')
+              input#daysavailable-4(type='checkbox', name='daysavailable', value='F')
+              |       F
+            label.checkbox-inline(for='daysavailable-5')
+              input#daysavailable-5(type='checkbox', name='daysavailable', value='Sa')
+              |       Sa
+            label.checkbox-inline(for='daysavailable-6')
+              input#daysavailable-6(type='checkbox', name='daysavailable', value='Su')
+              |       Su
+        // Multiple Checkboxes
+        .form-group
+          label.col-md-4.control-label(for='adminselect') Interested in being an Admin?
+          .col-md-4
+            .checkbox
+              label(for='adminselect-0')
+                input#adminselect-0(type='checkbox', name='adminselect', value='Y')
+                |       Yes
+            .checkbox
+              label(for='adminselect-1')
+                input#adminselect-1(type='checkbox', name='adminselect', value='N')
+                |       No
+        // Select Multiple
+        .form-group
+          label.col-md-4.control-label(for='skills') Skills
+          .col-md-4
+            select#skills.form-control(name='skills', multiple='multiple')
+              option(value='Front-End') Front End
+              option(value='Back-End') Back End
+              option(value='DevOps') DevOps
+              option(value='Machine-Learning') Machine Learning
+              option(value='UI') UI/UX
+              option(value='Data-Analysis') Data Analysis
+              option(value='Business') Business / Entrepreneur
+              option(value='Branding') Branding
+              option(value='Finance') Finance
+        // Button
+        .form-group
+          label.col-md-4.control-label(for='submit')
+          .col-md-4
+            button#submit.btn.btn-primary(name='submit') Submit
