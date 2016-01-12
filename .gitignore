@@ -39,3 +39,4 @@ Thumbs.db
 lib/auth/secrets.js
 
 node_modules/
+/data
